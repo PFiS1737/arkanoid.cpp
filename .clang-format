@@ -5,7 +5,7 @@ ColumnLimit: 90
 SortIncludes: CaseSensitive
 NamespaceIndentation: All
 MaxEmptyLinesToKeep: 1
-ReflowComments: false
+# ReflowComments: false
 AllowShortFunctionsOnASingleLine: None
 AllowShortIfStatementsOnASingleLine: AllIfsAndElse
 AllowShortLoopsOnASingleLine: true
