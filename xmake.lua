@@ -4,7 +4,7 @@ set_project("arkanoid.cpp")
 set_version("1.0.0")
 set_languages("c++20")
 
-add_requires("allegro")
+add_requires("allegro", { system = true })
 
 target("arkanoid.cpp", function()
 	set_kind("binary")
