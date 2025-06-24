@@ -30,9 +30,15 @@ This project is easy to build and run with modern tool [`just`](https://github.c
 
 ### 🚀 Build & Run
 
+> See [`justfile`](./justfile) and [`xmake.lua`](./xmake.lua) for more details.
+
 ```bash
 just       # build the project
 just run   # build and run the game
 ```
 
-> See [`justfile`](./justfile) and [`xmake.lua`](./xmake.lua) for more details.
+
+## References
+
+- [Allegro 5 Documentation](https://liballeg.org/a5docs/5.2.10/index.html)
+- [Raquette Baballe](https://github.com/LuxySs-Evr5/RaquetteBaballe) (another Arkanoid remake)
