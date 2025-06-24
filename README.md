@@ -6,6 +6,20 @@ A modern C++ implementation of the classic **Arkanoid** game.
 
 > Gameplay instructions coming soon!
 
+## 🎯 Roadmap
+
+- [ ] Basic gameplay
+- [ ] More bricks types
+  - [ ] Silver Bricks: breakable only with multiple hits
+  - [ ] Gold Bricks: unbreakable
+- [ ] Bonus pills
+  - [ ] Slow Down
+  - [ ] Extra Life
+  - [ ] Wide Racket
+  - [ ] Sticky Racket
+  - [ ] Split Ball
+  - [ ] Lazer
+
 ## 🛠️ Development
 
 This project is easy to build and run with modern tool [`just`](https://github.com/casey/just).
