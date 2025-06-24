@@ -1,0 +1,15 @@
+Language: Cpp
+Standard: c++20
+IndentWidth: 2
+ColumnLimit: 90
+SortIncludes: CaseSensitive
+NamespaceIndentation: All
+MaxEmptyLinesToKeep: 1
+ReflowComments: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortLoopsOnASingleLine: true
+AlignTrailingComments: true
+AlignEscapedNewlines: DontAlign
+IndentPPDirectives: AfterHash
+IndentCaseLabels: true
