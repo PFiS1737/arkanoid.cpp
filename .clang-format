@@ -1,7 +1,7 @@
 Language: Cpp
 Standard: c++20
 IndentWidth: 2
-ColumnLimit: 90
+ColumnLimit: 120
 SortIncludes: CaseSensitive
 NamespaceIndentation: All
 MaxEmptyLinesToKeep: 1
