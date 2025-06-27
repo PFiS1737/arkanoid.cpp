@@ -1,14 +1,14 @@
-#include "game.hpp"
+#include "controller.hpp"
 #include <fstream>
 #include <iostream>
 #include <sstream>
 
-Game::Game() : board{make_shared<Board>()}, display(Display(board)) {
+Controller::Controller() : board{make_shared<Board>()}, display(Display(board)) {
   setupAllegro();
   startingGame();
 }
 
-Game::~Game() {
+Controller::~Controller() {
   if (timer) {
     al_destroy_timer(timer);
   }
@@ -17,7 +17,7 @@ Game::~Game() {
   }
 }
 
-void Game::process() {
+void Controller::process() {
   while (!done) {
     al_wait_for_event(eventQueue, nullptr);
 
@@ -40,7 +40,7 @@ void Game::process() {
   }
 }
 
-void Game::handleTick() {
+void Controller::handleTick() {
   checkWinOrLose();
 
   al_get_mouse_state(&mouseState);
@@ -56,7 +56,7 @@ void Game::handleTick() {
   }
 }
 
-void Game::checkWinOrLose() {
+void Controller::checkWinOrLose() {
   if (board->bricks.size() == 0) {
     al_stop_timer(timer);
     display.gameWin();
@@ -70,7 +70,7 @@ void Game::checkWinOrLose() {
   }
 }
 
-void Game::waitKeyToRestart() {
+void Controller::waitKeyToRestart() {
   while (!(event.type == ALLEGRO_EVENT_KEY_DOWN)) {
     al_get_next_event(eventQueue, &event);
     if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
@@ -81,7 +81,7 @@ void Game::waitKeyToRestart() {
   al_rest(0.001); // prevent 100% CPU usage
 }
 
-void Game::loadLevel() {
+void Controller::loadLevel() {
   board->reset();
 
   ifstream file(LEVEL_PATH);
@@ -114,7 +114,7 @@ void Game::loadLevel() {
   al_start_timer(timer);
 }
 
-void Game::setupAllegro() {
+void Controller::setupAllegro() {
   if (!al_install_keyboard()) {
     cerr << "Failed to install the keyboard" << endl;
     exit(1);
@@ -143,7 +143,7 @@ void Game::setupAllegro() {
   al_register_event_source(eventQueue, al_get_timer_event_source(timer));
 }
 
-void Game::startingGame() {
+void Controller::startingGame() {
   display.gameLaunch();
   waitKeyToRestart();
   loadLevel();

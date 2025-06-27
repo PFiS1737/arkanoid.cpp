@@ -4,7 +4,7 @@
 
 using namespace std;
 
-class Game {
+class Controller {
   bool done = false;
   bool draw = false;
 
@@ -27,8 +27,8 @@ class Game {
   void startingGame();
 
 public:
-  Game();
-  ~Game();
+  Controller();
+  ~Controller();
 
   void process();
 };
