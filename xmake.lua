@@ -15,8 +15,7 @@ target("arkanoid.cpp", function()
 	add_cxxflags("-Wall", "-Wextra", "-pedantic")
 
 	if is_mode("debug") then
-		add_cxxflags("-g", "-fsanitize=address,undefined")
-		add_ldflags("-fsanitize=address,undefined")
+		add_cxxflags("-g")
 		add_defines("DEBUG")
 	else
 		add_cxxflags("-O3")
