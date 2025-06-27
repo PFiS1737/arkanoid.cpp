@@ -97,8 +97,8 @@ void Game::loadLevel() {
     double x, y;
     string color;
     if (!(iss >> x >> y >> color)) {
-      cerr << "Failed to read line: " << line << endl;
-      exit(1);
+      // cout << "Failed to read line: '" << line << "', skipping" << endl;
+      continue;
     }
 
     x += BORDER_THICKNESS;
