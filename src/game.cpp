@@ -70,7 +70,7 @@ void Game::checkWinOrLose() {
   }
 }
 
-void Game::waitKeyToRestart() { // FIXME: can't close the game when waiting
+void Game::waitKeyToRestart() {
   while (!(event.type == ALLEGRO_EVENT_KEY_DOWN)) {
     al_get_next_event(eventQueue, &event);
     if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
@@ -78,6 +78,7 @@ void Game::waitKeyToRestart() { // FIXME: can't close the game when waiting
       break;
     }
   }
+  al_rest(0.001); // prevent 100% CPU usage
 }
 
 void Game::loadLevel() {
