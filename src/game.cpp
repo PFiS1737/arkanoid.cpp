@@ -70,7 +70,7 @@ void Game::checkWinOrLose() {
   }
 }
 
-void Game::waitKeyToRestart() {
+void Game::waitKeyToRestart() { // FIXME: can't close the game when waiting
   while (!(event.type == ALLEGRO_EVENT_KEY_DOWN)) {
     al_get_next_event(eventQueue, &event);
     if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
@@ -95,14 +95,15 @@ void Game::loadLevel() {
   while (getline(file, line)) {
     istringstream iss(line);
     double x, y;
-    if (!(iss >> x >> y)) {
+    string color;
+    if (!(iss >> x >> y >> color)) {
       cerr << "Failed to read line: " << line << endl;
       exit(1);
     }
 
     x += BORDER_THICKNESS;
     y += BORDER_THICKNESS;
-    bricks.push_back(Brick::makeBrick(Vec2{x, y}, BRICK_WIDTH, BRICK_HEIGHT));
+    bricks.push_back(Brick::makeBrick(Vec2{x, y}, BRICK_WIDTH, BRICK_HEIGHT, Color::fromString(color)));
   }
 
   file.close();

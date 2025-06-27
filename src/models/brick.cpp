@@ -1,9 +1,12 @@
 #include "brick.hpp"
 
-Brick::Brick(const Vec2 &center, double width, double height)
-    : Rectangle{center, width, height, ALLEGRO_COLOR{1, 0, 0, 1}} {
+Brick::Brick(const Vec2 &center, double width, double height, Color color) : Rectangle{center, width, height, color} {
 }
 
-std::unique_ptr<Brick> Brick::makeBrick(const Vec2 &center, double width, double height) {
-  return std::make_unique<Brick>(center, width, height);
+unique_ptr<Brick> Brick::makeBrick(const Vec2 &center, double width, double height, Color color) {
+  return make_unique<Brick>(center, width, height, color);
+}
+
+size_t Brick::getScore() const {
+  return color.score;
 }

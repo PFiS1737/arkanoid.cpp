@@ -1,20 +1,19 @@
 #pragma once
 
+#include "color.hpp"
 #include "vec2.hpp"
-#include <allegro5/color.h>
-#include <string>
 
 // Paths
 const std::string FONT_PATH = "ressources/font.ttf"; // JetBrainsMonoNLNerdFont-Regular
 const std::string LEVEL_PATH = "ressources/level.txt";
 
 // Screen
-inline constexpr float SCREEN_WIDTH = 1020;
+inline constexpr float SCREEN_WIDTH = 1090;
 inline constexpr float SCREEN_HEIGHT = 1080;
 inline constexpr double FPS = 125;
 
 // Board
-inline constexpr double BOARD_WIDTH = 980;
+inline constexpr double BOARD_WIDTH = 1050;
 inline constexpr double BOARD_HEIGHT = 980;
 inline constexpr double UPS = 125;
 
@@ -39,6 +38,11 @@ inline constexpr double RACKET_Y_POSITION = 50;
 inline constexpr unsigned INITIAL_NUM_LIVES = 3;
 
 // Colors
-const ALLEGRO_COLOR COLOR_BLACK = al_map_rgb(0, 0, 0);
-const ALLEGRO_COLOR COLOR_WHITE = al_map_rgb(255, 255, 255);
-const ALLEGRO_COLOR COLOR_RED = al_map_rgb(255, 0, 0);
+const Color COLOR_RED = {255, 0, 0, 1};
+const Color COLOR_GREEN = {0, 255, 0, 2};
+const Color COLOR_BLUE = {0, 0, 255, 3};
+const Color COLOR_YELLOW = {255, 255, 0, 4};
+const Color COLOR_MAGENTA = {255, 0, 255, 5};
+const Color COLOR_CYAN = {0, 255, 255, 6};
+const Color COLOR_WHITE = {255, 255, 255};
+const Color COLOR_BLACK = {0, 0, 0};

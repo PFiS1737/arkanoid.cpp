@@ -7,9 +7,9 @@ struct Rectangle {
   Vec2 center;
   double width;
   double height;
-  ALLEGRO_COLOR color;
+  Color color;
 
-  Rectangle(const Vec2 &center, double width, double height, ALLEGRO_COLOR color = COLOR_WHITE);
+  Rectangle(const Vec2 &center, double width, double height, Color color = COLOR_WHITE);
 
   void draw() const;
 };

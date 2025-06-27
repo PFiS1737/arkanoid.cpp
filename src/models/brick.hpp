@@ -4,7 +4,9 @@
 #include <memory>
 
 struct Brick : Rectangle {
-  static std::unique_ptr<Brick> makeBrick(const Vec2 &center, double width, double height);
+  static unique_ptr<Brick> makeBrick(const Vec2 &center, double width, double height, Color color);
 
-  Brick(const Vec2 &center, double width, double height);
+  Brick(const Vec2 &center, double width, double height, Color color);
+
+  size_t getScore() const;
 };

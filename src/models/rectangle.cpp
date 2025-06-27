@@ -2,7 +2,7 @@
 #include "../configs.hpp"
 #include <allegro5/allegro_primitives.h>
 
-Rectangle::Rectangle(const Vec2 &center, double width, double height, ALLEGRO_COLOR color)
+Rectangle::Rectangle(const Vec2 &center, double width, double height, Color color)
     : center(center), width{width}, height{height}, color{color} {
 }
 
