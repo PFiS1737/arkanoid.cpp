@@ -1,6 +1,6 @@
 #pragma once
 
-struct Vec2 {
+struct Vec2 final {
   double x;
   double y;
 

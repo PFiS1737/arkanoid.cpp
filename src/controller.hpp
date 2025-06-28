@@ -4,7 +4,7 @@
 
 using namespace std;
 
-class Controller {
+class Controller final {
   bool done = false;
   bool draw = false;
 

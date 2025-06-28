@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class Display {
+class Display final {
   const shared_ptr<Board> board;
 
   ALLEGRO_DISPLAY *display;

@@ -3,7 +3,7 @@
 #include "bounceable.hpp"
 #include <memory>
 
-class Ball {
+class Ball final {
   Vec2 getCollPosOnRect(const Rectangle &rectangle) const;
 
 public:

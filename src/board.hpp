@@ -10,7 +10,7 @@
 
 using namespace std;
 
-class Board {
+class Board final {
   void solveBallCollisions(Ball &ball);
 
   using BrickIt = vector<shared_ptr<Brick>>::const_iterator;

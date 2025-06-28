@@ -5,7 +5,7 @@
 
 using namespace std;
 
-struct Color {
+struct Color final {
   ALLEGRO_COLOR color;
   size_t score;
 
