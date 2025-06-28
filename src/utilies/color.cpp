@@ -1,4 +1,4 @@
-#include "../configs.hpp"
+#include "../../configs.hpp"
 #include <unordered_map>
 
 Color Color::fromString(const string &colorName) {
