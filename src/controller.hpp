@@ -20,7 +20,7 @@ class Controller final {
 
   void handleTick();
   void checkWinOrLose();
-  void waitKeyToRestart();
+  void waitStart();
   void loadLevel();
 
   void setupAllegro();

@@ -60,25 +60,32 @@ void Controller::checkWinOrLose() {
   if (board->bricks.size() == 0) {
     al_stop_timer(timer);
     display.gameWin();
-    waitKeyToRestart();
+    waitStart();
     loadLevel();
   } else if (board->life == 0) {
     al_stop_timer(timer);
     display.gameOver();
-    waitKeyToRestart();
+    waitStart();
     loadLevel();
   }
 }
 
-void Controller::waitKeyToRestart() {
-  while (!(event.type == ALLEGRO_EVENT_KEY_DOWN)) {
-    al_get_next_event(eventQueue, &event);
+void Controller::waitStart() {
+  do {
     if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
       done = true;
       break;
+    } else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
+      if (event.keyboard.keycode == ALLEGRO_KEY_Q || event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+        done = true;
+      }
+      break;
     }
-  }
-  al_rest(0.001); // prevent 100% CPU usage
+
+    al_get_next_event(eventQueue, &event);
+
+    al_rest(0.001); // NOTE: prevent 100% CPU usage
+  } while (true);
 }
 
 void Controller::loadLevel() {
@@ -145,6 +152,6 @@ void Controller::setupAllegro() {
 
 void Controller::startingGame() {
   display.gameLaunch();
-  waitKeyToRestart();
+  waitStart();
   loadLevel();
 }
