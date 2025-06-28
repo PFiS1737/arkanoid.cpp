@@ -76,7 +76,7 @@ Board::findCollisionResult Board::findCollision(Ball &ball) {
   auto checkCollisions = [&](auto &seq) {
     for (auto it = seq.begin(); it != seq.end(); it++) {
       if (ball.checkCollision(**it)) {
-        double dist = ball.getCollDistVec(**it).getModule();
+        double dist = ball.getCollDist(**it);
         if (dist < min) {
           res = it;
           min = dist;
@@ -89,7 +89,7 @@ Board::findCollisionResult Board::findCollision(Ball &ball) {
   checkCollisions(borders);
 
   if (racket && ball.checkCollision(*racket)) {
-    double dist = ball.getCollDistVec(*racket).getModule();
+    double dist = ball.getCollDist(*racket);
     if (dist < min) {
       res = racket;
       min = dist;

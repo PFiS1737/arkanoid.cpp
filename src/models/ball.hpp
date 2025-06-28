@@ -17,7 +17,7 @@ public:
 
   static std::shared_ptr<Ball> newBall();
 
-  Vec2 getCollDistVec(const Rectangle &rect) const;
+  double getCollDist(const Rectangle &rect) const;
   bool checkCollision(const Rectangle &rect) const;
   void collide(const Bounceable &bounceable);
 

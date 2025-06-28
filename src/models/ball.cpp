@@ -1,6 +1,5 @@
 #include "ball.hpp"
 #include <allegro5/allegro_primitives.h>
-#include <cmath>
 
 Ball::Ball(const Vec2 &center, double radius, Vec2 dirVec, double speed)
     : center{center}, radius{radius}, dirVec{dirVec.normalized()}, speed{speed} {
@@ -36,14 +35,8 @@ bool Ball::checkCollision(const Rectangle &rect) const {
   return Vec2{dx, dy}.getModule() < radius;
 }
 
-Vec2 Ball::getCollDistVec(const Rectangle &rect) const {
-  Vec2 posRect = getCollPosOnRect(rect);
-
-  double angleRad = atan2(posRect.y - center.y, posRect.x - center.x);
-
-  Vec2 posCircle{center.x + radius * cos(angleRad), center.y + radius * sin(angleRad)};
-
-  return posCircle - posRect;
+double Ball::getCollDist(const Rectangle &rect) const {
+  return (center - getCollPosOnRect(rect)).getModule() - radius;
 }
 
 void Ball::collide(const Bounceable &bounceable) {
