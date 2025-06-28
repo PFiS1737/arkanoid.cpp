@@ -72,10 +72,7 @@ void Display::draw() {
   al_draw_text(font24, COLOR_WHITE, (5 * SCREEN_WIDTH / 6) + 40, 45, ALLEGRO_ALIGN_CENTER,
                to_string(board->score).c_str());
 
-  for (auto &border : board->borders) border->draw();
-  for (auto &brick : board->bricks) brick->draw();
-  board->ball->draw();
-  board->racket->draw();
+  board->draw();
 
   al_flip_display();
 }

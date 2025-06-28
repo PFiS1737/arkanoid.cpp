@@ -35,6 +35,13 @@ void Board::reset() {
   bricks.clear();
 }
 
+void Board::draw() const {
+  for (auto &border : borders) border->draw();
+  for (auto &brick : bricks) brick->draw();
+  ball->draw();
+  racket->draw();
+}
+
 void Board::solveBallCollisions(Ball &ball) {
   auto coll = findCollision(ball);
 

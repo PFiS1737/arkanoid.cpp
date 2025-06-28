@@ -32,4 +32,6 @@ public:
 
   void update(double dt);
   void reset();
+
+  void draw() const;
 };
