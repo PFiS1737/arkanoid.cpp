@@ -1,9 +1,9 @@
 #pragma once
 
-#include "models/ball.hpp"
-#include "models/border.hpp"
-#include "models/brick.hpp"
-#include "models/racket.hpp"
+#include "ball.hpp"
+#include "border.hpp"
+#include "brick.hpp"
+#include "racket.hpp"
 #include <optional>
 #include <variant>
 #include <vector>

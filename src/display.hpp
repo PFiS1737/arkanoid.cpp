@@ -1,6 +1,6 @@
 #pragma once
 
-#include "board.hpp"
+#include "models/board.hpp"
 #include <allegro5/allegro_font.h>
 #include <memory>
 
