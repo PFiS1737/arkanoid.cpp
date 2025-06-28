@@ -1,7 +1,7 @@
 #pragma once
 
-#include "color.hpp"
-#include "vec2.hpp"
+#include "src/color.hpp"
+#include "src/vec2.hpp"
 
 // Paths
 const string FONT_PATH = "ressources/font.ttf"; // JetBrainsMonoNLNerdFont-Regular

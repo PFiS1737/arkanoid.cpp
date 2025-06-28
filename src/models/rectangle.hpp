@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../configs.hpp"
+#include "../../configs.hpp"
 #include "../vec2.hpp"
 
 struct Rectangle {
