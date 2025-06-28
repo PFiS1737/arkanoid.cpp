@@ -1,7 +1,7 @@
 #pragma once
 
-#include "rectangle.hpp"
+#include "bounceable.hpp"
 
-struct Border : Rectangle {
+struct Border : Bounceable {
   Border(const Vec2 &topLeft, const Vec2 &bottomRight);
 };

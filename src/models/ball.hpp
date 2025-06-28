@@ -1,10 +1,11 @@
 #pragma once
 
-#include "../configs.hpp"
-#include "../vec2.hpp"
+#include "bounceable.hpp"
 #include <memory>
 
 class Ball {
+  Vec2 getCollPosOnRect(const Rectangle &rectangle) const;
+
 public:
   Vec2 center;
   double radius;
@@ -15,6 +16,10 @@ public:
        double speed = BALL_SPEED);
 
   static std::shared_ptr<Ball> newBall();
+
+  Vec2 getCollDistVec(const Rectangle &rect) const;
+  bool checkCollision(const Rectangle &rect) const;
+  void collide(const Bounceable &bounceable);
 
   void update(double dt);
   void draw() const;

@@ -1,4 +1,5 @@
 #include "board.hpp"
+#include <limits>
 
 Board::Board() {
   racket =
@@ -17,6 +18,14 @@ void Board::update(double dt) {
   if (dt == 0) return;
 
   ball->update(dt);
+
+  solveBallCollisions(*ball);
+
+  if (ball->center.y < -ball->radius) {
+    if (--life > 0) {
+      ball = Ball::newBall();
+    }
+  }
 }
 
 void Board::reset() {
@@ -24,4 +33,61 @@ void Board::reset() {
   score = 0;
   ball = Ball::newBall();
   bricks.clear();
+}
+
+void Board::solveBallCollisions(Ball &ball) {
+  auto coll = findCollision(ball);
+
+  if (!coll.has_value()) {
+    return;
+  }
+
+  auto value = coll.value();
+
+  if (holds_alternative<shared_ptr<Racket>>(value)) {
+    auto racket = get<shared_ptr<Racket>>(value);
+    ball.collide(*racket);
+  }
+
+  else if (holds_alternative<BrickIt>(value)) {
+    auto it = get<BrickIt>(value);
+    ball.collide(**it);
+    score += (*it)->getScore();
+    bricks.erase(it);
+  }
+
+  else if (holds_alternative<BorderIt>(value)) {
+    auto it = get<BorderIt>(value);
+    ball.collide(**it);
+  }
+}
+
+Board::findCollisionResult Board::findCollision(Ball &ball) {
+  findCollisionResult res;
+  double min = numeric_limits<double>::max();
+
+  auto checkCollisions = [&](auto &seq) {
+    for (auto it = seq.begin(); it != seq.end(); it++) {
+      if (ball.checkCollision(**it)) {
+        double dist = ball.getCollDistVec(**it).getModule();
+        if (dist < min) {
+          res = it;
+          min = dist;
+        }
+      }
+    }
+  };
+
+  checkCollisions(bricks);
+  checkCollisions(borders);
+
+  if (racket && ball.checkCollision(*racket)) {
+    double dist = ball.getCollDistVec(*racket).getModule();
+    if (dist < min) {
+      res = racket;
+      min = dist;
+    }
+  }
+
+  return res;
 }

@@ -5,11 +5,20 @@
 #include "models/brick.hpp"
 #include "models/racket.hpp"
 #include <memory>
+#include <optional>
+#include <variant>
 #include <vector>
 
 using namespace std;
 
 class Board {
+  void solveBallCollisions(Ball &ball);
+
+  using BrickIt = vector<shared_ptr<Brick>>::const_iterator;
+  using BorderIt = vector<shared_ptr<Border>>::const_iterator;
+  using findCollisionResult = optional<variant<BrickIt, BorderIt, shared_ptr<Racket>>>;
+  findCollisionResult findCollision(Ball &ball);
+
 public:
   unsigned long score = 0;
   unsigned life = INITIAL_NUM_LIVES;

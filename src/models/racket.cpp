@@ -1,7 +1,7 @@
 #include "racket.hpp"
 #include <algorithm>
 
-Racket::Racket(const Vec2 &center, double width, double height) : Rectangle{center, width, height} {
+Racket::Racket(const Vec2 &center, double width, double height) : Bounceable{center, width, height} {
 }
 
 void Racket::setCenterX(double x) {
