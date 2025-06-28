@@ -1,4 +1,7 @@
 #include "controller.hpp"
+#include "models/bricks/gold.hpp"
+#include "models/bricks/normal.hpp"
+#include "models/bricks/silver.hpp"
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -103,15 +106,25 @@ void Controller::loadLevel() {
   while (getline(file, line)) {
     istringstream iss(line);
     double x, y;
-    string color;
-    if (!(iss >> x >> y >> color)) {
+    string colorName;
+    if (!(iss >> x >> y >> colorName)) {
       // cout << "Failed to read line: '" << line << "', skipping" << endl;
       continue;
     }
 
     x += BORDER_THICKNESS;
     y += BORDER_THICKNESS;
-    bricks.push_back(Brick::makeBrick(Vec2{x, y}, BRICK_WIDTH, BRICK_HEIGHT, Color::fromString(color)));
+
+    Vec2 pos{x, y};
+    Color color = Color::fromString(colorName);
+
+    if (color == COLOR_SILVER) {
+      bricks.push_back(Brick::make<SilverBrick>(pos));
+    } else if (color == COLOR_GOLD) {
+      bricks.push_back(Brick::make<GoldBrick>(pos));
+    } else {
+      bricks.push_back(Brick::make<NormalBrick>(pos, color));
+    }
   }
 
   file.close();

@@ -13,3 +13,4 @@ AlignTrailingComments: true
 AlignEscapedNewlines: DontAlign
 IndentPPDirectives: AfterHash
 IndentCaseLabels: true
+BreakTemplateDeclarations: Yes

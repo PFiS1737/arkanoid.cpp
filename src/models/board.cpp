@@ -59,8 +59,10 @@ void Board::solveBallCollisions(Ball &ball) {
   else if (holds_alternative<BrickIt>(value)) {
     auto it = get<BrickIt>(value);
     ball.collide(**it);
-    score += (*it)->getScore();
-    bricks.erase(it);
+    if ((*it)->hit()) {
+      score += (*it)->getScore();
+      bricks.erase(it);
+    }
   }
 
   else if (holds_alternative<BorderIt>(value)) {

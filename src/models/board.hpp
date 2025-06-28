@@ -2,7 +2,7 @@
 
 #include "ball.hpp"
 #include "border.hpp"
-#include "brick.hpp"
+#include "bricks/brick.hpp"
 #include "racket.hpp"
 #include <optional>
 #include <variant>

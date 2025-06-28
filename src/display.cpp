@@ -3,6 +3,10 @@
 #include <allegro5/allegro_ttf.h>
 #include <iostream>
 
+ALLEGRO_FONT *Display::font24 = nullptr;
+ALLEGRO_FONT *Display::font50 = nullptr;
+ALLEGRO_FONT *Display::fontBrick = nullptr;
+
 Display::Display(const shared_ptr<Board> &board) : board(board) {
   if (!al_init()) {
     cerr << "Failed to initialize Allegro" << endl;
@@ -47,12 +51,19 @@ Display::Display(const shared_ptr<Board> &board) : board(board) {
     cerr << "Failed to load font50" << endl;
     exit(1);
   }
+
+  fontBrick = al_load_ttf_font(FONT_PATH.c_str(), BRICK_HEIGHT - 2, 0);
+  if (!fontBrick) {
+    cerr << "Failed to load fontBrick" << endl;
+    exit(1);
+  }
 }
 
 Display::~Display() {
   al_destroy_display(display);
   al_destroy_font(font24);
   al_destroy_font(font50);
+  al_destroy_font(fontBrick);
   al_shutdown_font_addon();
   al_shutdown_ttf_addon();
   al_shutdown_primitives_addon();

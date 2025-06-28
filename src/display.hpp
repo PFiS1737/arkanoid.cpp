@@ -11,13 +11,14 @@ class Display final {
 
   ALLEGRO_DISPLAY *display;
 
-  ALLEGRO_FONT *font24;
-  ALLEGRO_FONT *font50;
-
   string getScore();
   void displayLines3(string line1, string line2, string line3);
 
 public:
+  static ALLEGRO_FONT *font24;
+  static ALLEGRO_FONT *font50;
+  static ALLEGRO_FONT *fontBrick;
+
   Display(const shared_ptr<Board> &board);
   ~Display();
 

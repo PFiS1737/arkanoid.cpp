@@ -28,6 +28,7 @@ inline constexpr double BORDER_THICKNESS = 20;
 // Brick
 inline constexpr double BRICK_WIDTH = 70;
 inline constexpr double BRICK_HEIGHT = 20;
+inline constexpr size_t BRICK_SILVER_DURABILITY = 2;
 
 // Racket
 inline constexpr double RACKET_WIDTH = 100;
@@ -46,3 +47,5 @@ const Color COLOR_MAGENTA = {255, 0, 255, 5};
 const Color COLOR_CYAN = {0, 255, 255, 6};
 const Color COLOR_WHITE = {255, 255, 255};
 const Color COLOR_BLACK = {0, 0, 0};
+const Color COLOR_SILVER = {184, 217, 243, 10};
+const Color COLOR_GOLD = {255, 200, 0};

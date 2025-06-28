@@ -24,5 +24,5 @@ struct Rectangle {
   Vec2 getBottomLeft() const;
   Vec2 getBottomRight() const;
 
-  void draw() const;
+  virtual void draw() const;
 };

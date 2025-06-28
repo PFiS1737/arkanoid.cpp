@@ -9,9 +9,9 @@ A modern C++ implementation of the classic **Arkanoid** game.
 ## 🎯 Roadmap
 
 - [x] Basic gameplay
-- [ ] More bricks types
-  - [ ] Silver Bricks: breakable only with multiple hits
-  - [ ] Gold Bricks: unbreakable
+- [x] More bricks types
+  - [x] Silver Bricks: breakable only with multiple hits
+  - [x] Gold Bricks: unbreakable
 - [ ] Bonus pills
   - [ ] Slow Down
   - [ ] Extra Life

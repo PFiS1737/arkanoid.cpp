@@ -13,5 +13,6 @@ struct Color final {
 
   Color(unsigned char r, unsigned char g, unsigned char b, size_t score = 0);
 
+  bool operator==(const Color &other) const;
   operator ALLEGRO_COLOR() const;
 };
