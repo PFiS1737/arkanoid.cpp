@@ -1,17 +1,10 @@
 #pragma once
 
 #include "../utilies/bounceable.hpp"
+#include "../utilies/circle.hpp"
 #include <memory>
 
-class Ball final {
-  Vec2 getCollPosOnRect(const Rectangle &rectangle) const;
-
-public:
-  Vec2 center;
-  double radius;
-  Vec2 dirVec; // normalized
-  double speed;
-
+struct Ball final : Circle {
   Ball(const Vec2 &center, double radius = BALL_RADIUS, Vec2 dirVec = BALL_INITIAL_DIRECTION,
        double speed = BALL_SPEED);
 
@@ -26,6 +19,6 @@ public:
   bool checkCollision(const Rectangle &rect) const;
   void collide(const Bounceable &bounceable);
 
-  void update(double dt);
-  void draw() const;
+private:
+  Vec2 getCollPosOnRect(const Rectangle &rectangle) const;
 };
