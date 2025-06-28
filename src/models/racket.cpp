@@ -8,7 +8,7 @@ Racket::Racket(const Vec2 &center, double width, double height) : Bounceable{cen
 void Racket::setCenterX(double x) {
   auto left = BORDER_THICKNESS + (width / 2);
   auto right = (BOARD_WIDTH + BORDER_THICKNESS) - (width / 2);
-  x = std::clamp(x, left, right);
+  x = clamp(x, left, right);
 
   center.x = x;
 }

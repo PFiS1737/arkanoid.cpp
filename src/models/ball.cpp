@@ -4,7 +4,7 @@
 Ball::Ball(const Vec2 &center, double radius, Vec2 dirVec, double speed)
     : center{center}, radius{radius}, dirVec{dirVec.normalized()}, speed{speed} {
 }
-std::shared_ptr<Ball> Ball::newBall() {
+shared_ptr<Ball> Ball::newBall() {
   double x = BOARD_WIDTH / 2 + BORDER_THICKNESS;
   double y = RACKET_Y_POSITION + RACKET_HEIGHT / 2 + BALL_RADIUS;
   return std ::make_shared<Ball>(Vec2{x, y});

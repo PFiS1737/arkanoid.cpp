@@ -4,7 +4,6 @@
 #include "models/border.hpp"
 #include "models/brick.hpp"
 #include "models/racket.hpp"
-#include <memory>
 #include <optional>
 #include <variant>
 #include <vector>
