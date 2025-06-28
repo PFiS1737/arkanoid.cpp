@@ -1,5 +1,6 @@
 #include "racket.hpp"
 #include <algorithm>
+#include <cmath>
 
 Racket::Racket(const Vec2 &center, double width, double height) : Bounceable{center, width, height} {
 }
@@ -10,4 +11,18 @@ void Racket::setCenterX(double x) {
   x = std::clamp(x, left, right);
 
   center.x = x;
+}
+
+Vec2 Racket::getDirVecAfterBounce(const Vec2 &pos, const Vec2 &dirVec) const {
+  BounceType bounceType = getBounceType(pos);
+
+  if (bounceType == BounceType::Horizontal && pos.y == getTop()) {
+    double fromLeft = pos.x - (center.x - width / 2);
+
+    double theta = (30 + 120 * (1 - (fromLeft / width))) * numbers::pi / 180;
+
+    return Vec2{cos(theta), sin(theta)}.normalize();
+  }
+
+  return Bounceable::getDirVecAfterBounce(pos, dirVec);
 }

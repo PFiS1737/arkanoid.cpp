@@ -20,7 +20,7 @@ inline constexpr double UPS = 125;
 // Ball
 inline constexpr double BALL_RADIUS = 10;
 inline constexpr double BALL_SPEED = 500;
-const Vec2 BALL_INITIAL_DIRECTION{1, 1};
+const Vec2 BALL_INITIAL_DIRECTION{0, 1};
 
 // Border
 inline constexpr double BORDER_THICKNESS = 20;
