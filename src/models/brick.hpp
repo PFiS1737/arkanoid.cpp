@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../utilies/bounceable.hpp"
+#include "../shared/bounceable.hpp"
 #include <memory>
 
 struct Brick final : Bounceable {

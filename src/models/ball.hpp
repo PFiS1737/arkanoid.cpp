@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../utilies/bounceable.hpp"
-#include "../utilies/circle.hpp"
+#include "../shared/bounceable.hpp"
+#include "../shared/circle.hpp"
 #include <memory>
 
 struct Ball final : Circle {

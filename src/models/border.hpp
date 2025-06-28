@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../utilies/bounceable.hpp"
+#include "../shared/bounceable.hpp"
 
 struct Border final : Bounceable {
   Border(const Vec2 &topLeft, const Vec2 &bottomRight);
