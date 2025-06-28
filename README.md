@@ -8,7 +8,7 @@ A modern C++ implementation of the classic **Arkanoid** game.
 
 ## 🎯 Roadmap
 
-- [ ] Basic gameplay
+- [x] Basic gameplay
 - [ ] More bricks types
   - [ ] Silver Bricks: breakable only with multiple hits
   - [ ] Gold Bricks: unbreakable
