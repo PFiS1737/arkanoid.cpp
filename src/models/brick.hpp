@@ -8,5 +8,10 @@ struct Brick final : Bounceable {
 
   Brick(const Vec2 &center, double width, double height, Color color);
 
+  Brick(const Brick &) = delete;
+  Brick(Brick &&) = delete;
+  Brick &operator=(const Brick &) = delete;
+  Brick &operator=(Brick &&) = delete;
+
   size_t getScore() const;
 };

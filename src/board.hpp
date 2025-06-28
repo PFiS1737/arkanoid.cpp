@@ -29,6 +29,11 @@ public:
 
   Board();
 
+  Board(const Board &) = delete;
+  Board(Board &&) = delete;
+  Board &operator=(const Board &) = delete;
+  Board &operator=(Board &&) = delete;
+
   void update(double dt);
   void reset();
 

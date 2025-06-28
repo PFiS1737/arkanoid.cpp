@@ -21,6 +21,11 @@ public:
   Display(const shared_ptr<Board> &board);
   ~Display();
 
+  Display(const Display &) = delete;
+  Display(Display &&) = delete;
+  Display &operator=(const Display &) = delete;
+  Display &operator=(Display &&) = delete;
+
   void draw();
 
   void gameLaunch();
