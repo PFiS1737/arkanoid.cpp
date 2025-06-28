@@ -1,5 +1,4 @@
 #include "rectangle.hpp"
-#include "../../configs.hpp"
 #include <allegro5/allegro_primitives.h>
 
 Rectangle::Rectangle(const Vec2 &center, double width, double height, Color color)

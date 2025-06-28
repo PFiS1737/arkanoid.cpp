@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../../configs.hpp"
-#include "../utilies/vec2.hpp"
 
 struct Rectangle {
   Vec2 center;
