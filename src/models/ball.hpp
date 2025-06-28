@@ -15,7 +15,7 @@ public:
   Ball(const Vec2 &center, double radius = BALL_RADIUS, Vec2 dirVec = BALL_INITIAL_DIRECTION,
        double speed = BALL_SPEED);
 
-  static std::shared_ptr<Ball> newBall();
+  static shared_ptr<Ball> newBall();
 
   double getCollDist(const Rectangle &rect) const;
   bool checkCollision(const Rectangle &rect) const;

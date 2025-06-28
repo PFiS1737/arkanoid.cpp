@@ -4,8 +4,8 @@
 #include "vec2.hpp"
 
 // Paths
-const std::string FONT_PATH = "ressources/font.ttf"; // JetBrainsMonoNLNerdFont-Regular
-const std::string LEVEL_PATH = "ressources/level.txt";
+const string FONT_PATH = "ressources/font.ttf"; // JetBrainsMonoNLNerdFont-Regular
+const string LEVEL_PATH = "ressources/level.txt";
 
 // Screen
 inline constexpr float SCREEN_WIDTH = 1090;

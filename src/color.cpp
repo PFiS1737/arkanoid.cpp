@@ -1,4 +1,3 @@
-#include "color.hpp"
 #include "configs.hpp"
 #include <unordered_map>
 
