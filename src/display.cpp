@@ -1,7 +1,7 @@
 #include "display.hpp"
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
-#include <iostream>
+#include <stdexcept>
 
 ALLEGRO_FONT *Display::font24 = nullptr;
 ALLEGRO_FONT *Display::font50 = nullptr;
@@ -9,24 +9,20 @@ ALLEGRO_FONT *Display::fontBrick = nullptr;
 
 Display::Display(const shared_ptr<Board> &board) : board(board) {
   if (!al_init()) {
-    cerr << "Failed to initialize Allegro" << endl;
-    exit(1);
+    throw runtime_error("Failed to initialize Allegro");
   }
 
   if (!al_init_primitives_addon()) {
-    cerr << "Failed to initialize the primitives addon" << endl;
-    exit(1);
+    throw runtime_error("Failed to initialize Allegro primitives addon");
   };
 
   if (!al_init_font_addon() || !al_init_ttf_addon()) {
-    cerr << "Failed to initialize the font/ttf addon" << endl;
-    exit(1);
+    throw runtime_error("Failed to initialize Allegro font/ttf addon");
   };
 
   display = al_create_display(SCREEN_WIDTH, SCREEN_HEIGHT);
   if (!display) {
-    cerr << "Failed to create display" << endl;
-    exit(1);
+    throw runtime_error("Failed to create display");
   }
 
   ALLEGRO_MONITOR_INFO info;
@@ -42,20 +38,17 @@ Display::Display(const shared_ptr<Board> &board) : board(board) {
 
   font24 = al_load_ttf_font(FONT_PATH.c_str(), 24, 0);
   if (!font24) {
-    cerr << "Failed to load font24" << endl;
-    exit(1);
+    throw runtime_error("Failed to load font24");
   }
 
   font50 = al_load_ttf_font(FONT_PATH.c_str(), 50, 0);
   if (!font50) {
-    cerr << "Failed to load font50" << endl;
-    exit(1);
+    throw runtime_error("Failed to load font50");
   }
 
   fontBrick = al_load_ttf_font(FONT_PATH.c_str(), BRICK_HEIGHT - 2, 0);
   if (!fontBrick) {
-    cerr << "Failed to load fontBrick" << endl;
-    exit(1);
+    throw runtime_error("Failed to load fontBrick");
   }
 }
 

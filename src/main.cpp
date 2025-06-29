@@ -1,7 +1,13 @@
 #include "controller.hpp"
+#include <iostream>
 
 int main() {
-  Controller controller;
-  controller.process();
+  try {
+    Controller().process();
+  } catch (const exception &err) {
+    cerr << "Error: " << err.what() << endl;
+    return 1;
+  }
+
   return 0;
 }

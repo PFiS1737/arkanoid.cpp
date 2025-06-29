@@ -106,8 +106,7 @@ void Controller::waitStart() {
 void Controller::loadLevel() {
   ifstream file(LEVEL_PATH);
   if (!file.is_open()) {
-    cerr << "Failed to open file: " << LEVEL_PATH << endl;
-    exit(1);
+    throw runtime_error("Failed to open file: " + LEVEL_PATH);
   }
 
   vector<shared_ptr<Brick>> bricks;
@@ -120,7 +119,7 @@ void Controller::loadLevel() {
     double x, y;
     string color;
     if (!(iss >> x >> y >> color)) {
-      cerr << "Failed to read line: '" << line << "', skipping" << endl;
+      cout << "Failed to read line: '" << line << "', skipping" << endl;
       continue;
     }
 
@@ -150,25 +149,21 @@ void Controller::loadLevel() {
 
 void Controller::setupAllegro() {
   if (!al_install_keyboard()) {
-    cerr << "Failed to install the keyboard" << endl;
-    exit(1);
+    throw runtime_error("Failed to install the keyboard");
   }
 
   if (!al_install_mouse()) {
-    cerr << "Failed to install the mouse" << endl;
-    exit(1);
+    throw runtime_error("Failed to install the mouse");
   }
 
   timer = al_create_timer(1.0 / UPS);
   if (!timer) {
-    cerr << "Failed to create timer" << endl;
-    exit(1);
+    throw runtime_error("Failed to create timer");
   }
 
   eventQueue = al_create_event_queue();
   if (!eventQueue) {
-    cerr << "Failed to create queue" << endl;
-    exit(1);
+    throw runtime_error("Failed to create event queue");
   }
 
   al_register_event_source(eventQueue, al_get_display_event_source(display));
