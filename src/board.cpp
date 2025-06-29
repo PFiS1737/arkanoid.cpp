@@ -14,16 +14,23 @@ Board::Board() {
                                         Vec2{BOARD_WIDTH + BORDER_THICKNESS, BOARD_HEIGHT - BORDER_THICKNESS}));
 }
 
+void Board::init() {
+  bonusManager = make_unique<BonusManager>(weak_from_this());
+}
+
 void Board::update(double dt) {
   if (dt == 0) return;
 
+  bonusManager->update(dt);
   ball->update(dt);
+  for (auto &pill : pills) pill->update(dt);
 
   solveBallCollisions(*ball);
+  solvePillCatching();
 
   if (ball->center.y < -ball->radius) {
     if (--life > 0) {
-      ball = Ball::newBall();
+      ball = Ball::make();
     }
   }
 }
@@ -31,13 +38,14 @@ void Board::update(double dt) {
 void Board::reset() {
   life = INITIAL_NUM_LIVES;
   score = 0;
-  ball = Ball::newBall();
+  ball = Ball::make();
   bricks.clear();
 }
 
 void Board::draw() const {
   for (auto &border : borders) border->draw();
   for (auto &brick : bricks) brick->draw();
+  for (auto &pill : pills) pill->draw();
   ball->draw();
   racket->draw();
 }
@@ -61,6 +69,7 @@ void Board::solveBallCollisions(Ball &ball) {
     ball.collide(**it);
     if ((*it)->hit()) {
       score += (*it)->getScore();
+      pills.push_back(Pill::make((*it)->center, (*it)->bonus));
       bricks.erase(it);
     }
   }
@@ -95,6 +104,25 @@ Board::findCollisionResult Board::findCollision(Ball &ball) {
     if (dist < min) {
       res = racket;
       min = dist;
+    }
+  }
+
+  return res;
+}
+
+void Board::solvePillCatching() {
+  for (auto it : findPillCatching()) {
+    bonusManager->push((*it)->bonus);
+    pills.erase(it);
+  }
+}
+
+vector<Board::PillIt> Board::findPillCatching() {
+  vector<PillIt> res;
+
+  for (auto it = pills.begin(); it != pills.end(); it++) {
+    if ((*it)->checkCatching(*racket)) {
+      res.push_back(it);
     }
   }
 

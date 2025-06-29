@@ -27,11 +27,15 @@ The racket will follow the mouse movement. And, there are the following key bind
   - [x] Gold Bricks: unbreakable
 - [ ] Bonus pills
   - [ ] Slow Down
-  - [ ] Extra Life
+  - [x] Extra Life
   - [ ] Wide Racket
   - [ ] Sticky Racket
   - [ ] Split Ball
   - [ ] Lazer
+
+## 🐛 Known Issues
+
+- [ ] Only the ball can actively bounce, which may cause the ball to enter the racket and bounce between its top and bottom surfaces from inside.
 
 ## 🛠️ Development
 

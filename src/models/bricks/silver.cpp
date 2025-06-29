@@ -11,7 +11,7 @@ bool SilverBrick::hit() {
 }
 
 void SilverBrick::draw() const {
-  Rectangle::draw();
+  NormalBrick::draw();
   al_draw_text(Display::fontBrick, COLOR_BLACK, center.x, SCREEN_HEIGHT - center.y - height / 2 - 2,
                ALLEGRO_ALIGN_CENTER, to_string(durability).c_str());
 }

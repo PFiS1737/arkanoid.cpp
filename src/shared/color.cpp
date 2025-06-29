@@ -1,5 +1,6 @@
 #include "color.hpp"
 #include "../../configs.hpp"
+#include <iostream>
 #include <unordered_map>
 
 Color::Color(unsigned char r, unsigned char g, unsigned char b, size_t score)
@@ -29,6 +30,8 @@ Color Color::fromString(const string &colorName) {
   if (it != map.end()) {
     return it->second;
   }
+
+  cerr << "No color found for name: '" << colorName << "', using COLOR_WHITE." << endl;
 
   return COLOR_WHITE;
 }

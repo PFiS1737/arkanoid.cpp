@@ -3,7 +3,7 @@
 #include "normal.hpp"
 
 struct SilverBrick final : NormalBrick {
-  SilverBrick(const Vec2 &center);
+  SilverBrick(const Vec2 &center); // TODO: support bonus
 
   SilverBrick(const SilverBrick &) = delete;
   SilverBrick(SilverBrick &&) = delete;

@@ -141,3 +141,19 @@
 875 730 gold
 945 730 gold
 1015 730 gold
+
+35 710 red
+105 710 red
+175 710 red
+245 710 red
+315 710 red
+385 710 red
+455 710 red
+525 710 green extra_life
+595 710 red
+665 710 red
+735 710 red
+805 710 red
+875 710 red
+945 710 red
+1015 710 red

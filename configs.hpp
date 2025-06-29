@@ -1,7 +1,11 @@
 #pragma once
 
+#include "src/shared/bonus.hpp"
 #include "src/shared/color.hpp"
 #include "src/shared/vec2.hpp"
+
+// Initial number of lives
+inline constexpr unsigned INITIAL_NUM_LIVES = 3;
 
 // Paths
 inline const string FONT_PATH = "ressources/font.ttf"; // JetBrainsMonoNLNerdFont-Regular
@@ -50,5 +54,10 @@ inline constexpr double RACKET_HEIGHT = 25;
 inline constexpr double RACKET_Y_POSITION = 50;
 inline const Color RACKET_COLOR = COLOR_WHITE;
 
-// Initial number of lives
-inline constexpr unsigned INITIAL_NUM_LIVES = 3;
+// Pill
+inline constexpr double PILL_RADIUS = 6;
+inline constexpr double PILL_SPEED = 100;
+
+// Bonus
+inline const Bonus BONUS_NONE = {Bonus::Type::None};
+inline const Bonus BONUS_EXTRA_LIFE = {Bonus::Type::ExtraLife, COLOR_GREEN};

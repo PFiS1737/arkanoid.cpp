@@ -13,7 +13,7 @@ struct Ball final : Circle {
   Ball &operator=(const Ball &) = delete;
   Ball &operator=(Ball &&) = delete;
 
-  static shared_ptr<Ball> newBall();
+  static shared_ptr<Ball> make();
 
   double getCollDist(const Rectangle &rect) const;
   bool checkCollision(const Rectangle &rect) const;

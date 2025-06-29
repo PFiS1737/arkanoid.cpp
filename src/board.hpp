@@ -1,8 +1,10 @@
 #pragma once
 
+#include "bonus_manager.hpp"
 #include "models/ball.hpp"
 #include "models/border.hpp"
 #include "models/bricks/brick.hpp"
+#include "models/pill.hpp"
 #include "models/racket.hpp"
 #include <optional>
 #include <variant>
@@ -10,24 +12,32 @@
 
 using namespace std;
 
-class Board final {
+class Board final : public enable_shared_from_this<Board> {
+  unique_ptr<BonusManager> bonusManager;
+
   void solveBallCollisions(Ball &ball);
+  void solvePillCatching();
 
   using BrickIt = vector<shared_ptr<Brick>>::const_iterator;
   using BorderIt = vector<shared_ptr<Border>>::const_iterator;
   using findCollisionResult = optional<variant<BrickIt, BorderIt, shared_ptr<Racket>>>;
   findCollisionResult findCollision(Ball &ball);
 
+  using PillIt = vector<shared_ptr<Pill>>::const_iterator;
+  vector<PillIt> findPillCatching();
+
 public:
   unsigned long score = 0;
   unsigned life = INITIAL_NUM_LIVES;
 
-  shared_ptr<Racket> racket;
+  shared_ptr<Racket> racket; // TODO: move setCenterX to Board, and maek racket and borders private
   vector<shared_ptr<Border>> borders;
   vector<shared_ptr<Brick>> bricks;
+  vector<shared_ptr<Pill>> pills;
   shared_ptr<Ball> ball;
 
   Board();
+  void init();
 
   Board(const Board &) = delete;
   Board(Board &&) = delete;

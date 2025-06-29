@@ -6,7 +6,9 @@
 #include <iostream>
 #include <sstream>
 
-Controller::Controller() : board{make_shared<Board>()}, display(Display(board)) {
+Controller::Controller() : board{make_shared<Board>()}, display{Display(board)} {
+  board->init();
+
   setupAllegro();
   startingGame();
 }
@@ -119,9 +121,12 @@ void Controller::loadLevel() {
     double x, y;
     string color;
     if (!(iss >> x >> y >> color)) {
-      // cout << "Failed to read line: '" << line << "', skipping" << endl;
+      cerr << "Failed to read line: '" << line << "', skipping" << endl;
       continue;
     }
+
+    string bonus;
+    iss >> bonus;
 
     x += BORDER_THICKNESS;
     y += BORDER_THICKNESS;
@@ -133,7 +138,7 @@ void Controller::loadLevel() {
     } else if (color == COLOR_GOLD) {
       bricks.push_back(Brick::make<GoldBrick>(pos));
     } else {
-      bricks.push_back(Brick::make<NormalBrick>(pos, color));
+      bricks.push_back(Brick::make<NormalBrick>(pos, color, bonus));
     }
   }
 

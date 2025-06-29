@@ -4,7 +4,9 @@
 #include <memory>
 
 struct Brick : Bounceable {
-  Brick(const Vec2 &center, const Color &color, double width = BRICK_WIDTH, double height = BRICK_HEIGHT);
+  Bonus bonus;
+
+  Brick(const Vec2 &center, const Color &color, const Bonus &bonus = BONUS_NONE);
 
   Brick(const Brick &) = delete;
   Brick(Brick &&) = delete;
@@ -17,10 +19,12 @@ struct Brick : Bounceable {
   }
 
   template <typename T>
-  static shared_ptr<T> make(const Vec2 &center, const Color &color) {
-    return make_shared<T>(center, color);
+  static shared_ptr<T> make(const Vec2 &center, const Color &color, const Bonus &bonus) {
+    return make_shared<T>(center, color, bonus);
   }
 
   virtual size_t getScore() const;
-  virtual bool hit(); // returns true if the brick is destroyed, false otherwise
+  virtual bool hit(); // NOTE: returns true if the brick is destroyed, otherwise false
+
+  virtual void draw() const override;
 };

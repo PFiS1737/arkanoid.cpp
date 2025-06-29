@@ -5,7 +5,7 @@ Ball::Ball(const Vec2 &center, double radius, const Vec2 &dirVec, double speed)
     : Circle(center, radius, dirVec, speed, BALL_COLOR) {
 }
 
-shared_ptr<Ball> Ball::newBall() {
+shared_ptr<Ball> Ball::make() {
   double x = BOARD_WIDTH / 2 + BORDER_THICKNESS;
   double y = RACKET_Y_POSITION + RACKET_HEIGHT / 2 + BALL_RADIUS;
   return std ::make_shared<Ball>(Vec2{x, y});
