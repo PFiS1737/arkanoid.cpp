@@ -5,7 +5,7 @@
 #include <memory>
 
 struct Ball final : Circle {
-  Ball(const Vec2 &center, double radius = BALL_RADIUS, Vec2 dirVec = BALL_INITIAL_DIRECTION,
+  Ball(const Vec2 &center, double radius = BALL_RADIUS, const Vec2 &dirVec = BALL_INITIAL_DIRECTION,
        double speed = BALL_SPEED);
 
   Ball(const Ball &) = delete;

@@ -1,7 +1,8 @@
 #include "ball.hpp"
 #include <allegro5/allegro_primitives.h>
 
-Ball::Ball(const Vec2 &center, double radius, Vec2 dirVec, double speed) : Circle(center, radius, dirVec, speed) {
+Ball::Ball(const Vec2 &center, double radius, const Vec2 &dirVec, double speed)
+    : Circle(center, radius, dirVec, speed) {
 }
 
 shared_ptr<Ball> Ball::newBall() {
