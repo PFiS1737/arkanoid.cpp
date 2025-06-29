@@ -1,6 +1,5 @@
 #include "controller.hpp"
 #include "models/bricks/gold.hpp"
-#include "models/bricks/normal.hpp"
 #include "models/bricks/silver.hpp"
 #include <fstream>
 #include <iostream>
@@ -138,7 +137,7 @@ void Controller::loadLevel() {
     } else if (color == COLOR_GOLD) {
       bricks.push_back(Brick::make<GoldBrick>(pos));
     } else {
-      bricks.push_back(Brick::make<NormalBrick>(pos, color, bonus));
+      bricks.push_back(Brick::make<Brick>(pos, color, bonus));
     }
   }
 
