@@ -18,6 +18,14 @@ void Board::init() {
   bonusManager = make_unique<BonusManager>(weak_from_this());
 }
 
+bool Board::isWin() {
+  return bricks.empty() && life > 0;
+}
+
+void Board::setRacketX(double centerX) {
+  racket->setCenterX(centerX);
+}
+
 void Board::update(double dt) {
   if (dt == 0) return;
 
@@ -35,11 +43,11 @@ void Board::update(double dt) {
   }
 }
 
-void Board::reset() {
+void Board::reset(vector<shared_ptr<Brick>> bricks) {
   life = INITIAL_NUM_LIVES;
   score = 0;
   ball = Ball::make();
-  bricks.clear();
+  this->bricks = bricks;
 }
 
 void Board::draw() const {

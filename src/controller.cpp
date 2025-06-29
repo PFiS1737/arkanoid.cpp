@@ -60,7 +60,7 @@ void Controller::handleTick() {
   checkWinOrLose();
 
   al_get_mouse_state(&mouseState);
-  board->racket->setCenterX(mouseState.x);
+  board->setRacketX(mouseState.x);
 
   board->update(1.0 / UPS);
 
@@ -73,7 +73,7 @@ void Controller::handleTick() {
 }
 
 void Controller::checkWinOrLose() {
-  if (board->bricks.size() == 0) {
+  if (board->isWin()) {
     al_stop_timer(timer);
     display.gameWin();
     waitStart();
@@ -105,8 +105,6 @@ void Controller::waitStart() {
 }
 
 void Controller::loadLevel() {
-  board->reset();
-
   ifstream file(LEVEL_PATH);
   if (!file.is_open()) {
     cerr << "Failed to open file: " << LEVEL_PATH << endl;
@@ -144,7 +142,7 @@ void Controller::loadLevel() {
 
   file.close();
 
-  board->bricks = bricks;
+  board->reset(bricks);
 
   al_start_timer(timer);
 }

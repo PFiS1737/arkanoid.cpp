@@ -13,6 +13,11 @@
 using namespace std;
 
 class Board final : public enable_shared_from_this<Board> {
+  vector<shared_ptr<Border>> borders;
+  shared_ptr<Racket> racket;
+  vector<shared_ptr<Brick>> bricks;
+  vector<shared_ptr<Pill>> pills;
+  shared_ptr<Ball> ball;
   unique_ptr<BonusManager> bonusManager;
 
   void solveBallCollisions(Ball &ball);
@@ -30,12 +35,6 @@ public:
   unsigned long score = 0;
   unsigned life = INITIAL_NUM_LIVES;
 
-  shared_ptr<Racket> racket; // TODO: move setCenterX to Board, and maek racket and borders private
-  vector<shared_ptr<Border>> borders;
-  vector<shared_ptr<Brick>> bricks;
-  vector<shared_ptr<Pill>> pills;
-  shared_ptr<Ball> ball;
-
   Board();
   void init();
 
@@ -44,8 +43,11 @@ public:
   Board &operator=(const Board &) = delete;
   Board &operator=(Board &&) = delete;
 
+  bool isWin();
+  void setRacketX(double centerX);
+
   void update(double dt);
-  void reset();
+  void reset(vector<shared_ptr<Brick>> bricks);
 
   void draw() const;
 };
