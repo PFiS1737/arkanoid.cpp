@@ -3,11 +3,11 @@
 Bounceable::Bounceable(const Vec2 &center, double width, double height) : Rectangle{center, width, height} {
 }
 
-Bounceable::Bounceable(const Vec2 &center, double width, double height, Color color)
+Bounceable::Bounceable(const Vec2 &center, double width, double height, const Color &color)
     : Rectangle{center, width, height, color} {
 }
 
-Bounceable::Bounceable(const Vec2 &center, double width, double height, Color color, Color frameColor)
+Bounceable::Bounceable(const Vec2 &center, double width, double height, const Color &color, const Color &frameColor)
     : Rectangle{center, width, height, color, frameColor} {
 }
 

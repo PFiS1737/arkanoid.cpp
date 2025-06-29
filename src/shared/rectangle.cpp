@@ -1,7 +1,7 @@
 #include "rectangle.hpp"
 #include <allegro5/allegro_primitives.h>
 
-Rectangle::Rectangle(const Vec2 &center, double width, double height, Color color, Color frameColor)
+Rectangle::Rectangle(const Vec2 &center, double width, double height, const Color &color, const Color &frameColor)
     : center(center), width{width}, height{height}, color{color}, frameColor{frameColor} {
 }
 

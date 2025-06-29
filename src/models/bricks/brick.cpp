@@ -1,6 +1,7 @@
 #include "brick.hpp"
 
-Brick::Brick(const Vec2 &center, Color color, double width, double height) : Bounceable{center, width, height, color} {
+Brick::Brick(const Vec2 &center, const Color &color, double width, double height)
+    : Bounceable{center, width, height, color} {
 }
 
 size_t Brick::getScore() const {

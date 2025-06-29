@@ -3,7 +3,7 @@
 #include "brick.hpp"
 
 struct NormalBrick final : Brick {
-  NormalBrick(const Vec2 &center, Color color = COLOR_RED);
+  NormalBrick(const Vec2 &center, const Color &color = COLOR_RED);
 
   NormalBrick(const NormalBrick &) = delete;
   NormalBrick(NormalBrick &&) = delete;

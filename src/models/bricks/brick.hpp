@@ -4,7 +4,7 @@
 #include <memory>
 
 struct Brick : Bounceable {
-  Brick(const Vec2 &center, Color color, double width = BRICK_WIDTH, double height = BRICK_HEIGHT);
+  Brick(const Vec2 &center, const Color &color, double width = BRICK_WIDTH, double height = BRICK_HEIGHT);
 
   Brick(const Brick &) = delete;
   Brick(Brick &&) = delete;
@@ -17,7 +17,7 @@ struct Brick : Bounceable {
   }
 
   template <typename T>
-  static shared_ptr<T> make(const Vec2 &center, Color color) {
+  static shared_ptr<T> make(const Vec2 &center, const Color &color) {
     return make_shared<T>(center, color);
   }
 

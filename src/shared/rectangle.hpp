@@ -9,7 +9,8 @@ struct Rectangle {
   Color color;
   Color frameColor;
 
-  Rectangle(const Vec2 &center, double width, double height, Color color = COLOR_WHITE, Color frameColor = COLOR_BLACK);
+  Rectangle(const Vec2 &center, double width, double height, const Color &color = COLOR_WHITE,
+            const Color &frameColor = COLOR_BLACK);
 
   Rectangle(const Rectangle &) = delete;
   Rectangle(Rectangle &&) = delete;
