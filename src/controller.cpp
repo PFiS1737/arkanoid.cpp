@@ -117,8 +117,8 @@ void Controller::loadLevel() {
   while (getline(file, line)) {
     istringstream iss(line);
     double x, y;
-    string colorName;
-    if (!(iss >> x >> y >> colorName)) {
+    string color;
+    if (!(iss >> x >> y >> color)) {
       // cout << "Failed to read line: '" << line << "', skipping" << endl;
       continue;
     }
@@ -127,7 +127,6 @@ void Controller::loadLevel() {
     y += BORDER_THICKNESS;
 
     Vec2 pos{x, y};
-    Color color = Color::fromString(colorName);
 
     if (color == COLOR_SILVER) {
       bricks.push_back(Brick::make<SilverBrick>(pos));

@@ -9,10 +9,12 @@ struct Color final {
   ALLEGRO_COLOR color;
   size_t score;
 
-  static Color fromString(const string &colorName);
-
   Color(unsigned char r, unsigned char g, unsigned char b, size_t score = 0);
+  Color(const string &colorName);
 
   bool operator==(const Color &other) const;
   operator ALLEGRO_COLOR() const;
+
+private:
+  static Color fromString(const string &colorName);
 };
