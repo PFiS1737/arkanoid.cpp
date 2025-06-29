@@ -1,10 +1,14 @@
 #include "bounceable.hpp"
 
-Bounceable::Bounceable(const Vec2 &center, double width, double height) : Rectangle(center, width, height) {
+Bounceable::Bounceable(const Vec2 &center, double width, double height) : Rectangle{center, width, height} {
 }
 
 Bounceable::Bounceable(const Vec2 &center, double width, double height, Color color)
-    : Rectangle(center, width, height, color) {
+    : Rectangle{center, width, height, color} {
+}
+
+Bounceable::Bounceable(const Vec2 &center, double width, double height, Color color, Color frameColor)
+    : Rectangle{center, width, height, color, frameColor} {
 }
 
 Bounceable::BounceType Bounceable::getBounceType(const Vec2 &pos) const {

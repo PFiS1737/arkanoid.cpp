@@ -1,8 +1,8 @@
 #include "rectangle.hpp"
 #include <allegro5/allegro_primitives.h>
 
-Rectangle::Rectangle(const Vec2 &center, double width, double height, Color color)
-    : center(center), width{width}, height{height}, color{color} {
+Rectangle::Rectangle(const Vec2 &center, double width, double height, Color color, Color frameColor)
+    : center(center), width{width}, height{height}, color{color}, frameColor{frameColor} {
 }
 
 double Rectangle::getLeft() const {
@@ -46,5 +46,5 @@ void Rectangle::draw() const {
   const float y2 = y + height / 2;
 
   al_draw_filled_rectangle(x1, y1, x2, y2, color);
-  al_draw_rectangle(x1, y1, x2, y2, COLOR_BLACK, 1);
+  al_draw_rectangle(x1, y1, x2, y2, frameColor, 1);
 }

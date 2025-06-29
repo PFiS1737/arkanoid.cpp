@@ -7,6 +7,7 @@ struct Bounceable : Rectangle {
 
   Bounceable(const Vec2 &center, double width, double height);
   Bounceable(const Vec2 &center, double width, double height, Color color);
+  Bounceable(const Vec2 &center, double width, double height, Color color, Color frameColor);
 
   Bounceable(const Bounceable &) = delete;
   Bounceable(Bounceable &&) = delete;

@@ -6,5 +6,6 @@ Border::Border(const Vec2 &topLeft, const Vec2 &bottomRight)
           abs(bottomRight.x - topLeft.x),
           abs(topLeft.y - bottomRight.y),
           BORDER_COLOR,
+          BORDER_COLOR,
       } {
 }
