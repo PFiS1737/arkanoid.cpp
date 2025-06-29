@@ -132,9 +132,9 @@
 245 730 silver
 315 730 silver
 385 730 silver
-455 730 silver extra_life
-525 730 green extra_life
-595 730 silver extra_life
+455 730 green extra_life
+525 730 yellow slow_ball
+595 730 green extra_life
 665 730 silver
 735 730 silver
 805 730 silver

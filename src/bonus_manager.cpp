@@ -40,6 +40,9 @@ void BonusManager::onActivate(Bonus::Type bonus) {
       case Bonus::Type::ExtraLife:
         board->life++;
         break;
+      case Bonus::Type::SlowBall:
+        board->setBallSlowRate(BONUS_SLOW_BALL_RATE);
+        break;
       default:
         throw runtime_error("Unknown bonus type activated");
     }
@@ -49,8 +52,15 @@ void BonusManager::onActivate(Bonus::Type bonus) {
 }
 
 void BonusManager::onDeactivate(Bonus::Type bonus) {
-  switch (bonus) {
-    default:
-      throw runtime_error("Unknown bonus type deactivated");
+  if (auto board = this->board.lock()) {
+    switch (bonus) {
+      case Bonus::Type::SlowBall:
+        board->setBallSlowRate(1 / BONUS_SLOW_BALL_RATE);
+        break;
+      default:
+        throw runtime_error("Unknown bonus type deactivated");
+    }
+  } else {
+    throw runtime_error("Board is no longer available");
   }
 }

@@ -44,7 +44,9 @@ public:
   Board &operator=(Board &&) = delete;
 
   bool isWin();
+
   void setRacketX(double centerX);
+  void setBallSlowRate(double rate);
 
   void update(double dt);
   void reset(vector<shared_ptr<Brick>> bricks);

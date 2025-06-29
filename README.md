@@ -26,7 +26,7 @@ The racket will follow the mouse movement. And, there are the following key bind
   - [x] Silver Bricks: breakable only with multiple hits
   - [x] Gold Bricks: unbreakable
 - [ ] Bonus pills
-  - [ ] Slow Down
+  - [x] Slow Ball
   - [x] Extra Life
   - [ ] Wide Racket
   - [ ] Sticky Racket

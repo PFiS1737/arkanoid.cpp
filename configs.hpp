@@ -61,3 +61,6 @@ inline constexpr double PILL_SPEED = 100;
 // Bonus
 inline const Bonus BONUS_NONE = {Bonus::Type::None};
 inline const Bonus BONUS_EXTRA_LIFE = {Bonus::Type::ExtraLife, COLOR_GREEN};
+inline const Bonus BONUS_SLOW_BALL = {Bonus::Type::SlowBall, COLOR_YELLOW, 10};
+
+inline constexpr double BONUS_SLOW_BALL_RATE = 0.666;

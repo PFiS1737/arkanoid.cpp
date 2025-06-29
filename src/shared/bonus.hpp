@@ -7,6 +7,7 @@ struct Bonus {
   enum class Type {
     None,
     ExtraLife,
+    SlowBall,
   };
 
   Type type;

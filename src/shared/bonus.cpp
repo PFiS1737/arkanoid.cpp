@@ -28,6 +28,7 @@ Bonus Bonus::fromString(const string &bonusName) {
   static const unordered_map<string, Bonus> map = {
       {"", BONUS_NONE},
       {"extra_life", BONUS_EXTRA_LIFE},
+      {"slow_ball", BONUS_SLOW_BALL},
   };
 
   auto it = map.find(bonusName);
@@ -45,7 +46,9 @@ Bonus::operator string() const {
     case Type::None:
       return "";
     case Type::ExtraLife:
-      return "";
+      return "";
+    case Type::SlowBall:
+      return "󱙷";
     default:
       throw runtime_error("Unknown bonus type");
   }

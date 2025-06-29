@@ -26,6 +26,10 @@ void Board::setRacketX(double centerX) {
   racket->setCenterX(centerX);
 }
 
+void Board::setBallSlowRate(double rate) {
+  ball->speed *= rate;
+}
+
 void Board::update(double dt) {
   if (dt == 0) return;
 
