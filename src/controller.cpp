@@ -27,11 +27,22 @@ void Controller::process() {
     while (al_get_next_event(eventQueue, &event)) {
       if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
         done = true;
-      } else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
-        if (event.keyboard.keycode == ALLEGRO_KEY_Q || event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+      }
+
+      if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
+        auto code = event.keyboard.keycode;
+
+        if (code == ALLEGRO_KEY_Q || code == ALLEGRO_KEY_ESCAPE) {
           done = true;
         }
-      } else if (event.type == ALLEGRO_EVENT_TIMER) {
+
+        if (code == ALLEGRO_KEY_R) {
+          al_stop_timer(timer);
+          loadLevel();
+        }
+      }
+
+      if (event.type == ALLEGRO_EVENT_TIMER) {
         handleTick();
       }
     }
