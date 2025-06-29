@@ -130,12 +130,12 @@ void Controller::loadLevel() {
     x += BORDER_THICKNESS;
     y += BORDER_THICKNESS;
 
-    Vec2 pos{x, y};
+    Vec2 pos = {x, y};
 
-    if (color == COLOR_SILVER) {
-      bricks.push_back(Brick::make<SilverBrick>(pos));
-    } else if (color == COLOR_GOLD) {
+    if (color == COLOR_GOLD) {
       bricks.push_back(Brick::make<GoldBrick>(pos));
+    } else if (color == COLOR_SILVER) {
+      bricks.push_back(Brick::make<SilverBrick>(pos, bonus));
     } else {
       bricks.push_back(Brick::make<Brick>(pos, color, bonus));
     }

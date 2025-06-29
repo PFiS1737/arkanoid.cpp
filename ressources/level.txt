@@ -132,28 +132,12 @@
 245 730 silver
 315 730 silver
 385 730 silver
-455 730 silver
-525 730 silver
-595 730 silver
+455 730 silver extra_life
+525 730 green extra_life
+595 730 silver extra_life
 665 730 silver
 735 730 silver
 805 730 silver
 875 730 gold
 945 730 gold
 1015 730 gold
-
-35 710 red
-105 710 red
-175 710 red
-245 710 red
-315 710 red
-385 710 red
-455 710 red
-525 710 green extra_life
-595 710 red
-665 710 red
-735 710 red
-805 710 red
-875 710 red
-945 710 red
-1015 710 red

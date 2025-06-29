@@ -3,7 +3,7 @@
 #include "brick.hpp"
 
 struct SilverBrick final : Brick {
-  SilverBrick(const Vec2 &center); // TODO: support bonus
+  SilverBrick(const Vec2 &center, const Bonus &bonus);
 
   SilverBrick(const SilverBrick &) = delete;
   SilverBrick(SilverBrick &&) = delete;

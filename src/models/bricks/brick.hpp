@@ -19,6 +19,11 @@ struct Brick : Bounceable {
   }
 
   template <typename T>
+  static shared_ptr<T> make(const Vec2 &center, const Bonus &bonus) {
+    return make_shared<T>(center, bonus);
+  }
+
+  template <typename T>
   static shared_ptr<T> make(const Vec2 &center, const Color &color, const Bonus &bonus) {
     return make_shared<T>(center, color, bonus);
   }
