@@ -2,7 +2,7 @@
 #include "../../display.hpp"
 #include <allegro5/allegro_primitives.h>
 
-SilverBrick::SilverBrick(const Vec2 &center) : Brick{center, COLOR_SILVER} {
+SilverBrick::SilverBrick(const Vec2 &center) : NormalBrick{center, COLOR_SILVER} {
 }
 
 bool SilverBrick::hit() {

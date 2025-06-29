@@ -2,7 +2,7 @@
 
 #include "brick.hpp"
 
-struct NormalBrick final : Brick {
+struct NormalBrick : Brick {
   NormalBrick(const Vec2 &center, const Color &color = COLOR_RED);
 
   NormalBrick(const NormalBrick &) = delete;

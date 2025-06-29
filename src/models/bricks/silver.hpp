@@ -1,8 +1,8 @@
 #pragma once
 
-#include "brick.hpp"
+#include "normal.hpp"
 
-struct SilverBrick final : Brick {
+struct SilverBrick final : NormalBrick {
   SilverBrick(const Vec2 &center);
 
   SilverBrick(const SilverBrick &) = delete;
