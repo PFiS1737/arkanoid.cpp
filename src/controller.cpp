@@ -115,6 +115,8 @@ void Controller::loadLevel() {
 
   string line;
   while (getline(file, line)) {
+    if (line.empty() || line.starts_with("#")) continue;
+
     istringstream iss(line);
     double x, y;
     string color;
