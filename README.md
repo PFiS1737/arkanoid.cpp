@@ -4,7 +4,20 @@ A modern C++ implementation of the classic **Arkanoid** game.
 
 ## 🕹️ Play
 
-> Gameplay instructions coming soon!
+### ⌨️ Controls
+
+The racket will follow the mouse movement. And, there are the following key bindings:
+
+- `q`, `<esc>` - Quit the game
+- `r` - Restart the current level
+- `<space>` - Release the ball or shoot the laser (coming soon)
+
+### ⚙️ Configuration
+
+- Check [configs.hpp](./configs.hpp) for the game configuration options.
+- Check [level.txt](./ressources/level.txt) for building your own levels.
+  - Note that the bricks coordinates are relative to the bottom-left corner of the screen.
+  - And make sure they are adjusted to the `size`'s defined in [configs.hpp](./configs.hpp).
 
 ## 🎯 Roadmap
 
