@@ -8,6 +8,7 @@ struct Bonus {
     None,
     ExtraLife,
     SlowBall,
+    WideRacket,
   };
 
   Type type;

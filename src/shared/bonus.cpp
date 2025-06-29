@@ -29,6 +29,7 @@ Bonus Bonus::fromString(const string &bonusName) {
       {"", BONUS_NONE},
       {"extra_life", BONUS_EXTRA_LIFE},
       {"slow_ball", BONUS_SLOW_BALL},
+      {"wide_racket", BONUS_WIDE_RACKET},
   };
 
   auto it = map.find(bonusName);
@@ -49,6 +50,8 @@ Bonus::operator string() const {
       return "";
     case Type::SlowBall:
       return "󱙷";
+    case Type::WideRacket:
+      return "󱙸";
     default:
       throw runtime_error("Unknown bonus type");
   }

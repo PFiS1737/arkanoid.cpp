@@ -26,6 +26,11 @@ void Board::setRacketX(double centerX) {
   racket->setCenterX(centerX);
 }
 
+void Board::setRacketWideRate(double rate) {
+  racket->width *= rate;
+  racket->width = min(racket->width, BOARD_WIDTH);
+}
+
 void Board::setBallSlowRate(double rate) {
   ball->speed *= rate;
 }

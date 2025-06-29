@@ -46,6 +46,7 @@ public:
   bool isWin();
 
   void setRacketX(double centerX);
+  void setRacketWideRate(double rate);
   void setBallSlowRate(double rate);
 
   void update(double dt);

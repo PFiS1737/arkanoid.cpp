@@ -43,6 +43,9 @@ void BonusManager::onActivate(Bonus::Type bonus) {
       case Bonus::Type::SlowBall:
         board->setBallSlowRate(BONUS_SLOW_BALL_RATE);
         break;
+      case Bonus::Type::WideRacket:
+        board->setRacketWideRate(BONUS_WIDE_RACKET_RATE);
+        break;
       default:
         throw runtime_error("Unknown bonus type activated");
     }
@@ -56,6 +59,9 @@ void BonusManager::onDeactivate(Bonus::Type bonus) {
     switch (bonus) {
       case Bonus::Type::SlowBall:
         board->setBallSlowRate(1 / BONUS_SLOW_BALL_RATE);
+        break;
+      case Bonus::Type::WideRacket:
+        board->setRacketWideRate(1 / BONUS_WIDE_RACKET_RATE);
         break;
       default:
         throw runtime_error("Unknown bonus type deactivated");
