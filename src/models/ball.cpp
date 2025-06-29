@@ -2,7 +2,7 @@
 #include <allegro5/allegro_primitives.h>
 
 Ball::Ball(const Vec2 &center, double radius, const Vec2 &dirVec, double speed)
-    : Circle(center, radius, dirVec, speed) {
+    : Circle(center, radius, dirVec, speed, BALL_COLOR) {
 }
 
 shared_ptr<Ball> Ball::newBall() {

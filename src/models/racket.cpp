@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <cmath>
 
-Racket::Racket(const Vec2 &center, double width, double height) : Bounceable{center, width, height} {
+Racket::Racket(const Vec2 &center, double width, double height) : Bounceable{center, width, height, RACKET_COLOR} {
 }
 
 void Racket::setCenterX(double x) {

@@ -4,8 +4,20 @@
 #include "src/shared/vec2.hpp"
 
 // Paths
-const string FONT_PATH = "ressources/font.ttf"; // JetBrainsMonoNLNerdFont-Regular
-const string LEVEL_PATH = "ressources/level.txt";
+inline const string FONT_PATH = "ressources/font.ttf"; // JetBrainsMonoNLNerdFont-Regular
+inline const string LEVEL_PATH = "ressources/level.txt";
+
+// Colors
+inline const Color COLOR_RED = {255, 0, 0, 1};
+inline const Color COLOR_GREEN = {0, 255, 0, 2};
+inline const Color COLOR_BLUE = {0, 0, 255, 3};
+inline const Color COLOR_YELLOW = {255, 255, 0, 4};
+inline const Color COLOR_MAGENTA = {255, 0, 255, 5};
+inline const Color COLOR_CYAN = {0, 255, 255, 6};
+inline const Color COLOR_WHITE = {255, 255, 255};
+inline const Color COLOR_BLACK = {0, 0, 0};
+inline const Color COLOR_SILVER = {184, 217, 243, 10};
+inline const Color COLOR_GOLD = {255, 200, 0};
 
 // Screen
 inline constexpr float SCREEN_WIDTH = 1090;
@@ -20,10 +32,12 @@ inline constexpr double UPS = 125;
 // Ball
 inline constexpr double BALL_RADIUS = 10;
 inline constexpr double BALL_SPEED = 500;
-const Vec2 BALL_INITIAL_DIRECTION{0, 1};
+inline const Color BALL_COLOR = COLOR_WHITE;
+inline const Vec2 BALL_INITIAL_DIRECTION{0, 1};
 
 // Border
 inline constexpr double BORDER_THICKNESS = 20;
+inline const Color BORDER_COLOR = COLOR_WHITE;
 
 // Brick
 inline constexpr double BRICK_WIDTH = 70;
@@ -34,18 +48,7 @@ inline constexpr size_t BRICK_SILVER_DURABILITY = 2;
 inline constexpr double RACKET_WIDTH = 100;
 inline constexpr double RACKET_HEIGHT = 25;
 inline constexpr double RACKET_Y_POSITION = 50;
+inline const Color RACKET_COLOR = COLOR_WHITE;
 
 // Initial number of lives
 inline constexpr unsigned INITIAL_NUM_LIVES = 3;
-
-// Colors
-const Color COLOR_RED = {255, 0, 0, 1};
-const Color COLOR_GREEN = {0, 255, 0, 2};
-const Color COLOR_BLUE = {0, 0, 255, 3};
-const Color COLOR_YELLOW = {255, 255, 0, 4};
-const Color COLOR_MAGENTA = {255, 0, 255, 5};
-const Color COLOR_CYAN = {0, 255, 255, 6};
-const Color COLOR_WHITE = {255, 255, 255};
-const Color COLOR_BLACK = {0, 0, 0};
-const Color COLOR_SILVER = {184, 217, 243, 10};
-const Color COLOR_GOLD = {255, 200, 0};
