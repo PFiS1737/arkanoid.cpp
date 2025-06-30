@@ -126,7 +126,7 @@
 945 750 red
 1015 750 red
 
-35 730 silver
+35 730 gold
 105 730 silver
 175 730 silver
 245 730 blue wide_racket
@@ -140,4 +140,4 @@
 805 730 blue wide_racket
 875 730 silver
 945 730 silver
-1015 730 silver
+1015 730 gold

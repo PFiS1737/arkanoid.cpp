@@ -20,7 +20,8 @@ void Board::init() {
 }
 
 bool Board::isWin() {
-  return bricks.empty() && life > 0;
+  return life > 0 && (bricks.empty() ||
+                      all_of(bricks.begin(), bricks.end(), [](auto &brick) { return brick->color == COLOR_GOLD; }));
 }
 
 void Board::setRacketX(double centerX) {
