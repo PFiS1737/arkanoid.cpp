@@ -69,6 +69,7 @@ void Board::reset(vector<shared_ptr<Brick>> bricks) {
   score = 0;
   ball = Ball::make();
   this->bricks = bricks;
+  pills.clear();
 }
 
 void Board::draw() const {

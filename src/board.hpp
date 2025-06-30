@@ -15,6 +15,7 @@ using namespace std;
 class Board final : public enable_shared_from_this<Board> {
   vector<shared_ptr<Border>> borders;
   shared_ptr<Racket> racket;
+
   vector<shared_ptr<Brick>> bricks;
   vector<shared_ptr<Pill>> pills;
   shared_ptr<Ball> ball;
