@@ -24,12 +24,12 @@ class Board final : public enable_shared_from_this<Board> {
 
   unique_ptr<BonusManager> bonusManager;
 
-  void solveBallCollisions();
+  void solveBallCollisions(const shared_ptr<Ball> &ball);
 
   using BrickIt = vector<shared_ptr<Brick>>::const_iterator;
   using BorderIt = vector<shared_ptr<Border>>::const_iterator;
   using findCollisionResult = optional<variant<BrickIt, BorderIt, shared_ptr<Racket>>>;
-  findCollisionResult findCollision(Ball &ball);
+  findCollisionResult findCollision(const shared_ptr<Ball> &ball);
 
 public:
   unsigned long score = 0;

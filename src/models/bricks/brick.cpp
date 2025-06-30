@@ -9,8 +9,8 @@ size_t Brick::getScore() const {
   return color.score;
 }
 
-bool Brick::hit() {
-  return true;
+void Brick::hit() {
+  destroyed = true;
 }
 
 void Brick::draw() const {

@@ -10,5 +10,5 @@ struct GoldBrick final : Brick {
   GoldBrick &operator=(const GoldBrick &) = delete;
   GoldBrick &operator=(GoldBrick &&) = delete;
 
-  bool hit() override;
+  void hit() override;
 };

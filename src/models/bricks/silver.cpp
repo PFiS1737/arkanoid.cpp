@@ -5,9 +5,8 @@
 SilverBrick::SilverBrick(const Vec2 &center, const Bonus &bonus) : Brick{center, COLOR_SILVER, bonus} {
 }
 
-bool SilverBrick::hit() {
-  if (--durability == 0) return true;
-  return false;
+void SilverBrick::hit() {
+  if (--durability == 0) destroyed = true;
 }
 
 void SilverBrick::draw() const {

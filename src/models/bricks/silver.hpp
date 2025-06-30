@@ -10,7 +10,7 @@ struct SilverBrick final : Brick {
   SilverBrick &operator=(const SilverBrick &) = delete;
   SilverBrick &operator=(SilverBrick &&) = delete;
 
-  bool hit() override;
+  void hit() override;
   void draw() const override;
 
 private:

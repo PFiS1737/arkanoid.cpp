@@ -82,10 +82,6 @@ void Board::shootLaser() {
 void Board::update(double dt) {
   if (dt == 0) return;
 
-  // NOTE: Make sure we handle collisions before updating the ball position,
-  //       so that we have a right dirVec after the ball is released from stuck.
-  solveBallCollisions(); // TODO: move to remove_if
-
   pills.erase(remove_if(pills.begin(), pills.end(),
                         [&](const auto &pill) {
                           pill->update(dt);
@@ -100,17 +96,15 @@ void Board::update(double dt) {
   lasers.erase(remove_if(lasers.begin(), lasers.end(),
                          [&](const auto &laser) {
                            laser->update(dt);
-                           for (auto it = bricks.begin(); it != bricks.end();) {
-                             auto brick = *it;
+                           // TODO: Maybe there is a better way to handle this?
+                           // FIXME: We traverse all bricks for each laser here,
+                           //        and we traverse them again every time we call `solveBallCollisions`,
+                           //        and finally again in `remove_if`.
+                           for (const auto &brick : bricks) {
                              if (laser->checkHit(*brick)) {
-                               score += brick->getScore(); // TODO:
-                               if (brick->bonus.type != Bonus::Type::None) {
-                                 pills.push_back(Pill::make(brick->center, brick->bonus));
-                               }
-                               bricks.erase(it);
+                               brick->hit();
                                return true;
                              }
-                             it++;
                            }
                            return laser->center.y + LASER_LENGTH > BOARD_HEIGHT;
                          }),
@@ -118,10 +112,26 @@ void Board::update(double dt) {
 
   balls.erase(remove_if(balls.begin(), balls.end(),
                         [&](const auto &ball) {
+                          // NOTE: Make sure we handle collisions before updating the ball position,
+                          //       so that we have a right dirVec after the ball is released from stuck.
+                          solveBallCollisions(ball);
                           ball->update(dt);
                           return ball->center.y < -ball->radius;
                         }),
               balls.end());
+
+  bricks.erase(remove_if(bricks.begin(), bricks.end(),
+                         [&](const auto &brick) {
+                           if (brick->destroyed) {
+                             score += brick->getScore();
+                             if (brick->bonus.type != Bonus::Type::None) {
+                               pills.push_back(Pill::make(brick->center, brick->bonus));
+                             }
+                             return true;
+                           }
+                           return false;
+                         }),
+               bricks.end());
 
   if (balls.empty() && --life > 0) {
     balls.push_back(Ball::make());
@@ -148,52 +158,44 @@ void Board::draw() const {
   racket->draw();
 }
 
-void Board::solveBallCollisions() {
-  for (const auto &ball : balls) {
-    auto res = findCollision(*ball);
+void Board::solveBallCollisions(const shared_ptr<Ball> &ball) {
+  auto res = findCollision(ball);
 
-    if (!res.has_value()) {
-      continue;
+  if (!res.has_value()) {
+    return;
+  }
+
+  auto value = res.value();
+
+  if (holds_alternative<shared_ptr<Racket>>(value)) {
+    auto racket = get<shared_ptr<Racket>>(value);
+    ball->collide(*racket);
+    if (sticky) {
+      ball->stuck = true;
+      sticky = false;
     }
+  }
 
-    auto value = res.value();
+  else if (holds_alternative<BrickIt>(value)) {
+    auto it = get<BrickIt>(value);
+    ball->collide(**it);
+    (*it)->hit();
+  }
 
-    if (holds_alternative<shared_ptr<Racket>>(value)) {
-      auto racket = get<shared_ptr<Racket>>(value);
-      ball->collide(*racket);
-      if (sticky) {
-        ball->stuck = true;
-        sticky = false;
-      }
-    }
-
-    else if (holds_alternative<BrickIt>(value)) {
-      auto it = get<BrickIt>(value);
-      ball->collide(**it);
-      if ((*it)->hit()) {
-        score += (*it)->getScore();
-        if ((*it)->bonus.type != Bonus::Type::None) {
-          pills.push_back(Pill::make((*it)->center, (*it)->bonus));
-        }
-        bricks.erase(it);
-      }
-    }
-
-    else if (holds_alternative<BorderIt>(value)) {
-      auto it = get<BorderIt>(value);
-      ball->collide(**it);
-    }
+  else if (holds_alternative<BorderIt>(value)) {
+    auto it = get<BorderIt>(value);
+    ball->collide(**it);
   }
 }
 
-Board::findCollisionResult Board::findCollision(Ball &ball) {
+Board::findCollisionResult Board::findCollision(const shared_ptr<Ball> &ball) {
   findCollisionResult res;
   double min = numeric_limits<double>::max();
 
   auto checkCollisions = [&](const auto &seq) {
     for (auto it = seq.begin(); it != seq.end(); it++) {
-      if (ball.checkCollision(**it)) {
-        double dist = ball.getCollDist(**it);
+      if (ball->checkCollision(**it)) {
+        double dist = ball->getCollDist(**it);
         if (dist < min) {
           res = it;
           min = dist;
@@ -205,8 +207,8 @@ Board::findCollisionResult Board::findCollision(Ball &ball) {
   checkCollisions(bricks);
   checkCollisions(borders);
 
-  if (racket && ball.checkCollision(*racket)) {
-    double dist = ball.getCollDist(*racket);
+  if (racket && ball->checkCollision(*racket)) {
+    double dist = ball->getCollDist(*racket);
     if (dist < min) {
       res = racket;
       min = dist;

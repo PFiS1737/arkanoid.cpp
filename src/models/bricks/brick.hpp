@@ -6,6 +6,8 @@
 struct Brick : Bounceable {
   Bonus bonus;
 
+  bool destroyed = false;
+
   Brick(const Vec2 &center, const Color &color, const Bonus &bonus = BONUS_NONE);
 
   Brick(const Brick &) = delete;
@@ -29,7 +31,7 @@ struct Brick : Bounceable {
   }
 
   virtual size_t getScore() const;
-  virtual bool hit(); // NOTE: returns true if the brick is destroyed, otherwise false
+  virtual void hit();
 
   virtual void draw() const override;
 };
