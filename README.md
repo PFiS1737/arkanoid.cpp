@@ -30,7 +30,7 @@ The racket will follow the mouse movement. And, there are the following key bind
   - [x] Extra Life
   - [x] Wide Racket
   - [x] Sticky Racket
-  - [ ] Split Ball
+  - [x] Split Ball
   - [ ] Lazer
 
 ## 🐛 Known Issues

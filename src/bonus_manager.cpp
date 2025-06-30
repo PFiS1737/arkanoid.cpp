@@ -49,6 +49,9 @@ void BonusManager::onActivate(Bonus::Type bonus) {
       case Bonus::Type::StickyRacket:
         board->sticky = true;
         break;
+      case Bonus::Type::SplitBall:
+        board->splitBalls();
+        break;
       default:
         throw runtime_error("Unknown bonus type activated");
     }

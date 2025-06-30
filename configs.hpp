@@ -64,6 +64,7 @@ inline const Bonus BONUS_EXTRA_LIFE = {Bonus::Type::ExtraLife, COLOR_GREEN};
 inline const Bonus BONUS_SLOW_BALL = {Bonus::Type::SlowBall, COLOR_YELLOW, 10};
 inline const Bonus BONUS_WIDE_RACKET = {Bonus::Type::WideRacket, COLOR_BLUE, 10};
 inline const Bonus BONUS_STICKY_RACKEY = {Bonus::Type::StickyRacket, COLOR_MAGENTA};
+inline const Bonus BONUS_SPLIT_BALL = {Bonus::Type::SplitBall, COLOR_CYAN};
 
 inline constexpr double BONUS_SLOW_BALL_RATE = 0.666;
 inline constexpr double BONUS_WIDE_RACKET_RATE = 1.5;

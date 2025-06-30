@@ -10,6 +10,7 @@ struct Bonus {
     SlowBall,
     WideRacket,
     StickyRacket,
+    SplitBall,
   };
 
   Type type;

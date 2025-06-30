@@ -18,11 +18,11 @@ class Board final : public enable_shared_from_this<Board> {
 
   vector<shared_ptr<Brick>> bricks;
   vector<shared_ptr<Pill>> pills;
-  shared_ptr<Ball> ball;
+  vector<shared_ptr<Ball>> balls;
 
   unique_ptr<BonusManager> bonusManager;
 
-  void solveBallCollisions(Ball &ball);
+  void solveBallCollisions();
   void solvePillCatching();
 
   using BrickIt = vector<shared_ptr<Brick>>::const_iterator;
@@ -53,6 +53,7 @@ public:
   void setRacketWideRate(double rate);
   void setBallSlowRate(double rate);
   void releaseBall();
+  void splitBalls();
 
   void update(double dt);
   void reset(vector<shared_ptr<Brick>> bricks);

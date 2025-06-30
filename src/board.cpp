@@ -1,4 +1,5 @@
 #include "board.hpp"
+#include <algorithm>
 #include <limits>
 
 Board::Board() {
@@ -23,12 +24,14 @@ bool Board::isWin() {
 }
 
 void Board::setRacketX(double centerX) {
-  auto dx = racket->center.x - ball->center.x;
-
+  auto ox = racket->center.x;
   racket->setCenterX(centerX);
 
-  if (ball->stuck) {
-    ball->center.x = racket->center.x - dx;
+  for (auto &ball : balls) {
+    if (ball->stuck) {
+      double dx = ox - ball->center.x;
+      ball->center.x = racket->center.x - dx;
+    }
   }
 }
 
@@ -38,11 +41,30 @@ void Board::setRacketWideRate(double rate) {
 }
 
 void Board::setBallSlowRate(double rate) {
-  ball->speed *= rate;
+  for (auto &ball : balls) ball->speed *= rate;
 }
 
 void Board::releaseBall() {
-  ball->stuck = false;
+  for (auto &ball : balls) ball->stuck = false;
+}
+
+void Board::splitBalls() {
+  vector<shared_ptr<Ball>> newBalls;
+
+  for (auto &ball : balls) {
+    if (ball->stuck) continue;
+
+    Vec2 center = ball->center;
+    double radius = ball->radius;
+    Vec2 dirVec = ball->dirVec;
+    double speed = ball->speed;
+
+    // newBalls.push_back(make_shared<Ball>(center, radius, dirVec, speed));
+    newBalls.push_back(make_shared<Ball>(center, radius, dirVec.rotated(30), speed));
+    newBalls.push_back(make_shared<Ball>(center, radius, dirVec.rotated(-30), speed));
+  }
+
+  balls = newBalls;
 }
 
 void Board::update(double dt) {
@@ -50,67 +72,74 @@ void Board::update(double dt) {
 
   // NOTE: Make sure we handle collisions before updating the ball position,
   //       so that we have a right dirVec after the ball is released from stuck.
-  solveBallCollisions(*ball);
+  solveBallCollisions();
   solvePillCatching();
 
   bonusManager->update(dt);
-  ball->update(dt);
-  for (auto &pill : pills) pill->update(dt);
+  for (auto &pill : pills) pill->update(dt); // TODO: also use erase-remove idiom
 
-  if (ball->center.y < -ball->radius) {
-    if (--life > 0) {
-      ball = Ball::make();
-    }
+  balls.erase(remove_if(balls.begin(), balls.end(),
+                        [&](auto &ball) {
+                          ball->update(dt);
+                          return ball->center.y < -ball->radius;
+                        }),
+              balls.end());
+
+  if (balls.empty() && --life > 0) {
+    balls.push_back(Ball::make());
   }
 }
 
 void Board::reset(vector<shared_ptr<Brick>> bricks) {
   life = INITIAL_NUM_LIVES;
   score = 0;
-  ball = Ball::make();
   this->bricks = bricks;
   pills.clear();
+  balls.clear();
+  balls.push_back(Ball::make());
 }
 
 void Board::draw() const {
   for (auto &border : borders) border->draw();
   for (auto &brick : bricks) brick->draw();
   for (auto &pill : pills) pill->draw();
-  ball->draw();
+  for (auto &ball : balls) ball->draw();
   racket->draw();
 }
 
-void Board::solveBallCollisions(Ball &ball) {
-  auto coll = findCollision(ball);
+void Board::solveBallCollisions() {
+  for (auto &ball : balls) {
+    auto res = findCollision(*ball);
 
-  if (!coll.has_value()) {
-    return;
-  }
-
-  auto value = coll.value();
-
-  if (holds_alternative<shared_ptr<Racket>>(value)) {
-    auto racket = get<shared_ptr<Racket>>(value);
-    ball.collide(*racket);
-    if (sticky) {
-      ball.stuck = true;
-      sticky = false;
+    if (!res.has_value()) {
+      continue;
     }
-  }
 
-  else if (holds_alternative<BrickIt>(value)) {
-    auto it = get<BrickIt>(value);
-    ball.collide(**it);
-    if ((*it)->hit()) {
-      score += (*it)->getScore();
-      pills.push_back(Pill::make((*it)->center, (*it)->bonus));
-      bricks.erase(it);
+    auto value = res.value();
+
+    if (holds_alternative<shared_ptr<Racket>>(value)) {
+      auto racket = get<shared_ptr<Racket>>(value);
+      ball->collide(*racket);
+      if (sticky) {
+        ball->stuck = true;
+        sticky = false;
+      }
     }
-  }
 
-  else if (holds_alternative<BorderIt>(value)) {
-    auto it = get<BorderIt>(value);
-    ball.collide(**it);
+    else if (holds_alternative<BrickIt>(value)) {
+      auto it = get<BrickIt>(value);
+      ball->collide(**it);
+      if ((*it)->hit()) {
+        score += (*it)->getScore();
+        pills.push_back(Pill::make((*it)->center, (*it)->bonus));
+        bricks.erase(it);
+      }
+    }
+
+    else if (holds_alternative<BorderIt>(value)) {
+      auto it = get<BorderIt>(value);
+      ball->collide(**it);
+    }
   }
 }
 

@@ -11,6 +11,12 @@ double Vec2::getModule() const {
   return sqrt(pow(x, 2) + pow(y, 2));
 }
 
+Vec2 Vec2::rotated(double detla) const {
+  double angle = atan2(y, x) + detla * numbers::pi / 180.0;
+  double mag = getModule();
+  return Vec2{cos(angle), sin(angle)} * mag;
+}
+
 const Vec2 &Vec2::normalize() {
   double vecLength = getModule();
 
