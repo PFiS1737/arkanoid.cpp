@@ -58,6 +58,10 @@ inline const Color RACKET_COLOR = COLOR_WHITE;
 inline constexpr double PILL_RADIUS = 6;
 inline constexpr double PILL_SPEED = 100;
 
+// Laser
+inline constexpr double LASER_LENGTH = 40;
+inline constexpr double LASER_SPEED = 1000;
+
 // Bonus
 inline const Bonus BONUS_NONE = {Bonus::Type::None};
 inline const Bonus BONUS_EXTRA_LIFE = {Bonus::Type::ExtraLife, COLOR_GREEN};
@@ -65,6 +69,7 @@ inline const Bonus BONUS_SLOW_BALL = {Bonus::Type::SlowBall, COLOR_YELLOW, 10};
 inline const Bonus BONUS_WIDE_RACKET = {Bonus::Type::WideRacket, COLOR_BLUE, 10};
 inline const Bonus BONUS_STICKY_RACKEY = {Bonus::Type::StickyRacket, COLOR_MAGENTA};
 inline const Bonus BONUS_SPLIT_BALL = {Bonus::Type::SplitBall, COLOR_CYAN};
+inline const Bonus BONUS_LASER = {Bonus::Type::Laser, COLOR_RED, 5};
 
 inline constexpr double BONUS_SLOW_BALL_RATE = 0.666;
 inline constexpr double BONUS_WIDE_RACKET_RATE = 1.5;

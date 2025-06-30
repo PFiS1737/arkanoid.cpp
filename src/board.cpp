@@ -45,8 +45,14 @@ void Board::setBallSlowRate(double rate) {
   for (auto &ball : balls) ball->speed *= rate;
 }
 
-void Board::releaseBall() {
-  for (auto &ball : balls) ball->stuck = false;
+bool Board::releaseBall() {
+  for (auto &ball : balls) {
+    if (ball->stuck) {
+      ball->stuck = false;
+      return true;
+    }
+  }
+  return false;
 }
 
 void Board::splitBalls() {
@@ -68,12 +74,17 @@ void Board::splitBalls() {
   balls = newBalls;
 }
 
+void Board::shootLaser() {
+  if (!laser) return;
+  lasers.push_back(make_shared<Laser>(Vec2{racket->center.x, racket->center.y + RACKET_HEIGHT / 2}));
+}
+
 void Board::update(double dt) {
   if (dt == 0) return;
 
   // NOTE: Make sure we handle collisions before updating the ball position,
   //       so that we have a right dirVec after the ball is released from stuck.
-  solveBallCollisions();
+  solveBallCollisions(); // TODO: move to remove_if
 
   pills.erase(remove_if(pills.begin(), pills.end(),
                         [&](auto &pill) {
@@ -85,6 +96,25 @@ void Board::update(double dt) {
                           return false;
                         }),
               pills.end());
+
+  lasers.erase(remove_if(lasers.begin(), lasers.end(),
+                         [&](auto &laser) {
+                           laser->update(dt);
+                           for (auto it = bricks.begin(); it != bricks.end();) {
+                             auto brick = *it;
+                             if (laser->checkHit(*brick)) {
+                               score += brick->getScore(); // TODO:
+                               if (brick->bonus.type != Bonus::Type::None) {
+                                 pills.push_back(Pill::make(brick->center, brick->bonus));
+                               }
+                               bricks.erase(it);
+                               return true;
+                             }
+                             it++;
+                           }
+                           return laser->center.y + LASER_LENGTH > BOARD_HEIGHT;
+                         }),
+               lasers.end());
 
   balls.erase(remove_if(balls.begin(), balls.end(),
                         [&](auto &ball) {
@@ -114,6 +144,7 @@ void Board::draw() const {
   for (auto &brick : bricks) brick->draw();
   for (auto &pill : pills) pill->draw();
   for (auto &ball : balls) ball->draw();
+  for (auto &laser : lasers) laser->draw();
   racket->draw();
 }
 

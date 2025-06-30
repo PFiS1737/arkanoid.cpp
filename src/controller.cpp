@@ -38,7 +38,7 @@ void Controller::process() {
         }
 
         if (code == ALLEGRO_KEY_SPACE) {
-          board->releaseBall();
+          if (!board->releaseBall()) board->shootLaser();
         }
 
         if (code == ALLEGRO_KEY_R) {

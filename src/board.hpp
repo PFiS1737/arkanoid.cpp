@@ -4,6 +4,7 @@
 #include "models/ball.hpp"
 #include "models/border.hpp"
 #include "models/bricks/brick.hpp"
+#include "models/laser.hpp"
 #include "models/pill.hpp"
 #include "models/racket.hpp"
 #include <optional>
@@ -19,6 +20,7 @@ class Board final : public enable_shared_from_this<Board> {
   vector<shared_ptr<Brick>> bricks;
   vector<shared_ptr<Pill>> pills;
   vector<shared_ptr<Ball>> balls;
+  vector<shared_ptr<Laser>> lasers;
 
   unique_ptr<BonusManager> bonusManager;
 
@@ -34,6 +36,7 @@ public:
   unsigned life = INITIAL_NUM_LIVES;
 
   bool sticky = false;
+  bool laser = false;
 
   Board();
   void init();
@@ -48,8 +51,9 @@ public:
   void setRacketX(double centerX);
   void setRacketWideRate(double rate);
   void setBallSlowRate(double rate);
-  void releaseBall();
+  bool releaseBall(); // Return true if actually released a ball
   void splitBalls();
+  void shootLaser();
 
   void update(double dt);
   void reset(vector<shared_ptr<Brick>> bricks);

@@ -32,6 +32,7 @@ Bonus Bonus::fromString(const string &bonusName) {
       {"wide_racket", BONUS_WIDE_RACKET},
       {"sticky_racket", BONUS_STICKY_RACKEY},
       {"split_ball", BONUS_SPLIT_BALL},
+      {"laser", BONUS_LASER},
   };
 
   auto it = map.find(bonusName);
@@ -58,6 +59,8 @@ Bonus::operator string() const {
       return "󰤄";
     case Type::SplitBall:
       return "󰃻";
+    case Type::Laser:
+      return "󱐋";
     default:
       throw runtime_error("Unknown bonus type");
   }

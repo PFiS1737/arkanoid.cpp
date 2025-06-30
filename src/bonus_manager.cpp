@@ -52,6 +52,9 @@ void BonusManager::onActivate(Bonus::Type bonus) {
       case Bonus::Type::SplitBall:
         board->splitBalls();
         break;
+      case Bonus::Type::Laser:
+        board->laser = true;
+        break;
       default:
         throw runtime_error("Unknown bonus type activated");
     }
@@ -68,6 +71,9 @@ void BonusManager::onDeactivate(Bonus::Type bonus) {
         break;
       case Bonus::Type::WideRacket:
         board->setRacketWideRate(1 / BONUS_WIDE_RACKET_RATE);
+        break;
+      case Bonus::Type::Laser:
+        board->laser = false;
         break;
       default:
         throw runtime_error("Unknown bonus type deactivated");

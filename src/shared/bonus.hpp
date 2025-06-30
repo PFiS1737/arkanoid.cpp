@@ -11,6 +11,7 @@ struct Bonus {
     WideRacket,
     StickyRacket,
     SplitBall,
+    Laser,
   };
 
   Type type;

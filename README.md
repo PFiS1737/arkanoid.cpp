@@ -25,13 +25,13 @@ The racket will follow the mouse movement. And, there are the following key bind
 - [x] More bricks types
   - [x] Silver Bricks: breakable only with multiple hits
   - [x] Gold Bricks: unbreakable
-- [ ] Bonus pills
+- [x] Bonus pills
   - [x] Slow Ball
   - [x] Extra Life
   - [x] Wide Racket
   - [x] Sticky Racket
   - [x] Split Ball
-  - [ ] Lazer
+  - [x] Laser
 
 ## 🐛 Known Issues
 
