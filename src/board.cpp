@@ -67,7 +67,7 @@ void Board::splitBalls() {
     double speed = ball->speed;
 
     // newBalls.push_back(make_shared<Ball>(center, radius, dirVec, speed));
-    newBalls.push_back(make_shared<Ball>(center, radius, dirVec.rotated(30), speed));
+    newBalls.push_back(make_shared<Ball>(center, radius, dirVec.rotated(30), speed)); // TODO: random?
     newBalls.push_back(make_shared<Ball>(center, radius, dirVec.rotated(-30), speed));
   }
 
@@ -169,7 +169,7 @@ void Board::solveBallCollisions(const shared_ptr<Ball> &ball) {
 
   if (holds_alternative<shared_ptr<Racket>>(value)) {
     auto racket = get<shared_ptr<Racket>>(value);
-    ball->collide(*racket);
+    ball->collide(racket);
     if (sticky) {
       ball->stuck = true;
       sticky = false;
@@ -177,14 +177,14 @@ void Board::solveBallCollisions(const shared_ptr<Ball> &ball) {
   }
 
   else if (holds_alternative<BrickIt>(value)) {
-    auto it = get<BrickIt>(value);
-    ball->collide(**it);
-    (*it)->hit();
+    auto brick = *get<BrickIt>(value);
+    ball->collide(brick);
+    brick->hit();
   }
 
   else if (holds_alternative<BorderIt>(value)) {
-    auto it = get<BorderIt>(value);
-    ball->collide(**it);
+    auto border = *get<BorderIt>(value);
+    ball->collide(border);
   }
 }
 
@@ -194,8 +194,8 @@ Board::findCollisionResult Board::findCollision(const shared_ptr<Ball> &ball) {
 
   auto checkCollisions = [&](const auto &seq) {
     for (auto it = seq.begin(); it != seq.end(); it++) {
-      if (ball->checkCollision(**it)) {
-        double dist = ball->getCollDist(**it);
+      if (ball->checkCollision(*it)) {
+        double dist = ball->getCollDist(*it);
         if (dist < min) {
           res = it;
           min = dist;
@@ -207,8 +207,8 @@ Board::findCollisionResult Board::findCollision(const shared_ptr<Ball> &ball) {
   checkCollisions(bricks);
   checkCollisions(borders);
 
-  if (racket && ball->checkCollision(*racket)) {
-    double dist = ball->getCollDist(*racket);
+  if (racket && ball->checkCollision(racket)) {
+    double dist = ball->getCollDist(racket);
     if (dist < min) {
       res = racket;
       min = dist;

@@ -17,12 +17,12 @@ struct Ball final : Circle {
 
   static shared_ptr<Ball> make();
 
-  double getCollDist(const Rectangle &rect) const;
-  bool checkCollision(const Rectangle &rect) const;
-  void collide(const Bounceable &bounceable);
+  double getCollDist(const shared_ptr<Rectangle> &rect) const;
+  bool checkCollision(const shared_ptr<Rectangle> &rect) const;
+  void collide(const shared_ptr<Bounceable> &bounceable);
 
   void update(double dt) override;
 
 private:
-  Vec2 getCollPosOnRect(const Rectangle &rectangle) const;
+  Vec2 getCollPosOnRect(const shared_ptr<Rectangle> &rectangle) const;
 };
