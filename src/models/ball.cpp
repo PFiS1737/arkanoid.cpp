@@ -32,3 +32,8 @@ double Ball::getCollDist(const Rectangle &rect) const {
 void Ball::collide(const Bounceable &bounceable) {
   dirVec = bounceable.getDirVecAfterBounce(getCollPosOnRect(bounceable), dirVec);
 }
+
+void Ball::update(double dt) {
+  if (stuck) return;
+  Circle::update(dt);
+}

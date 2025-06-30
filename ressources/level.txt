@@ -130,13 +130,13 @@
 105 730 gold
 175 730 gold
 245 730 silver
-315 730 silver
-385 730 blue wide_racket
-455 730 green extra_life
-525 730 yellow slow_ball
-595 730 green extra_life
-665 730 blue wide_racket
-735 730 silver
+315 730 blue wide_racket
+385 730 green extra_life
+455 730 yellow slow_ball
+525 730 magenta sticky_racket
+595 730 yellow slow_ball
+665 730 green extra_life
+735 730 blue wide_racket
 805 730 silver
 875 730 gold
 945 730 gold

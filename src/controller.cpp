@@ -37,6 +37,10 @@ void Controller::process() {
           done = true;
         }
 
+        if (code == ALLEGRO_KEY_SPACE) {
+          board->releaseBall();
+        }
+
         if (code == ALLEGRO_KEY_R) {
           al_stop_timer(timer);
           loadLevel();

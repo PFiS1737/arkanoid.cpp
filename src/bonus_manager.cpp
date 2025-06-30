@@ -46,6 +46,9 @@ void BonusManager::onActivate(Bonus::Type bonus) {
       case Bonus::Type::WideRacket:
         board->setRacketWideRate(BONUS_WIDE_RACKET_RATE);
         break;
+      case Bonus::Type::StickyRacket:
+        board->sticky = true;
+        break;
       default:
         throw runtime_error("Unknown bonus type activated");
     }

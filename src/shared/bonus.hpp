@@ -9,6 +9,7 @@ struct Bonus {
     ExtraLife,
     SlowBall,
     WideRacket,
+    StickyRacket,
   };
 
   Type type;

@@ -18,6 +18,7 @@ class Board final : public enable_shared_from_this<Board> {
   vector<shared_ptr<Brick>> bricks;
   vector<shared_ptr<Pill>> pills;
   shared_ptr<Ball> ball;
+
   unique_ptr<BonusManager> bonusManager;
 
   void solveBallCollisions(Ball &ball);
@@ -35,6 +36,8 @@ public:
   unsigned long score = 0;
   unsigned life = INITIAL_NUM_LIVES;
 
+  bool sticky = false;
+
   Board();
   void init();
 
@@ -48,6 +51,7 @@ public:
   void setRacketX(double centerX);
   void setRacketWideRate(double rate);
   void setBallSlowRate(double rate);
+  void releaseBall();
 
   void update(double dt);
   void reset(vector<shared_ptr<Brick>> bricks);

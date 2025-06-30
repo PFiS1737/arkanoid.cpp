@@ -29,7 +29,7 @@ The racket will follow the mouse movement. And, there are the following key bind
   - [x] Slow Ball
   - [x] Extra Life
   - [x] Wide Racket
-  - [ ] Sticky Racket
+  - [x] Sticky Racket
   - [ ] Split Ball
   - [ ] Lazer
 

@@ -5,6 +5,8 @@
 #include <memory>
 
 struct Ball final : Circle {
+  bool stuck = false;
+
   Ball(const Vec2 &center, double radius = BALL_RADIUS, const Vec2 &dirVec = BALL_INITIAL_DIRECTION,
        double speed = BALL_SPEED);
 
@@ -18,6 +20,8 @@ struct Ball final : Circle {
   double getCollDist(const Rectangle &rect) const;
   bool checkCollision(const Rectangle &rect) const;
   void collide(const Bounceable &bounceable);
+
+  void update(double dt) override;
 
 private:
   Vec2 getCollPosOnRect(const Rectangle &rectangle) const;
