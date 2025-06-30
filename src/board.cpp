@@ -73,10 +73,17 @@ void Board::update(double dt) {
   // NOTE: Make sure we handle collisions before updating the ball position,
   //       so that we have a right dirVec after the ball is released from stuck.
   solveBallCollisions();
-  solvePillCatching();
 
-  bonusManager->update(dt);
-  for (auto &pill : pills) pill->update(dt); // TODO: also use erase-remove idiom
+  pills.erase(remove_if(pills.begin(), pills.end(),
+                        [&](auto &pill) {
+                          pill->update(dt);
+                          if (pill->checkCatching(*racket)) {
+                            bonusManager->push(pill->bonus);
+                            return true;
+                          }
+                          return false;
+                        }),
+              pills.end());
 
   balls.erase(remove_if(balls.begin(), balls.end(),
                         [&](auto &ball) {
@@ -88,6 +95,8 @@ void Board::update(double dt) {
   if (balls.empty() && --life > 0) {
     balls.push_back(Ball::make());
   }
+
+  bonusManager->update(dt);
 }
 
 void Board::reset(vector<shared_ptr<Brick>> bricks) {
@@ -167,25 +176,6 @@ Board::findCollisionResult Board::findCollision(Ball &ball) {
     if (dist < min) {
       res = racket;
       min = dist;
-    }
-  }
-
-  return res;
-}
-
-void Board::solvePillCatching() {
-  for (auto it : findPillCatching()) {
-    bonusManager->push((*it)->bonus);
-    pills.erase(it);
-  }
-}
-
-vector<Board::PillIt> Board::findPillCatching() {
-  vector<PillIt> res;
-
-  for (auto it = pills.begin(); it != pills.end(); it++) {
-    if ((*it)->checkCatching(*racket)) {
-      res.push_back(it);
     }
   }
 
