@@ -140,7 +140,9 @@ void Board::solveBallCollisions() {
       ball->collide(**it);
       if ((*it)->hit()) {
         score += (*it)->getScore();
-        pills.push_back(Pill::make((*it)->center, (*it)->bonus));
+        if ((*it)->bonus.type != Bonus::Type::None) {
+          pills.push_back(Pill::make((*it)->center, (*it)->bonus));
+        }
         bricks.erase(it);
       }
     }
