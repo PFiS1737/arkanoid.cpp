@@ -20,15 +20,15 @@ void Board::init() {
 }
 
 bool Board::isWin() {
-  return life > 0 && (bricks.empty() ||
-                      all_of(bricks.begin(), bricks.end(), [](auto &brick) { return brick->color == COLOR_GOLD; }));
+  return life > 0 && (bricks.empty() || all_of(bricks.begin(), bricks.end(),
+                                               [](const auto &brick) { return brick->color == COLOR_GOLD; }));
 }
 
 void Board::setRacketX(double centerX) {
   auto ox = racket->center.x;
   racket->setCenterX(centerX);
 
-  for (auto &ball : balls) {
+  for (const auto &ball : balls) {
     if (ball->stuck) {
       double dx = ox - ball->center.x;
       ball->center.x = racket->center.x - dx;
@@ -42,11 +42,11 @@ void Board::setRacketWideRate(double rate) {
 }
 
 void Board::setBallSlowRate(double rate) {
-  for (auto &ball : balls) ball->speed *= rate;
+  for (const auto &ball : balls) ball->speed *= rate;
 }
 
 bool Board::releaseBall() {
-  for (auto &ball : balls) {
+  for (const auto &ball : balls) {
     if (ball->stuck) {
       ball->stuck = false;
       return true;
@@ -58,7 +58,7 @@ bool Board::releaseBall() {
 void Board::splitBalls() {
   vector<shared_ptr<Ball>> newBalls;
 
-  for (auto &ball : balls) {
+  for (const auto &ball : balls) {
     if (ball->stuck) continue;
 
     Vec2 center = ball->center;
@@ -87,7 +87,7 @@ void Board::update(double dt) {
   solveBallCollisions(); // TODO: move to remove_if
 
   pills.erase(remove_if(pills.begin(), pills.end(),
-                        [&](auto &pill) {
+                        [&](const auto &pill) {
                           pill->update(dt);
                           if (pill->checkCatching(*racket)) {
                             bonusManager->push(pill->bonus);
@@ -98,7 +98,7 @@ void Board::update(double dt) {
               pills.end());
 
   lasers.erase(remove_if(lasers.begin(), lasers.end(),
-                         [&](auto &laser) {
+                         [&](const auto &laser) {
                            laser->update(dt);
                            for (auto it = bricks.begin(); it != bricks.end();) {
                              auto brick = *it;
@@ -117,7 +117,7 @@ void Board::update(double dt) {
                lasers.end());
 
   balls.erase(remove_if(balls.begin(), balls.end(),
-                        [&](auto &ball) {
+                        [&](const auto &ball) {
                           ball->update(dt);
                           return ball->center.y < -ball->radius;
                         }),
@@ -140,16 +140,16 @@ void Board::reset(vector<shared_ptr<Brick>> bricks) {
 }
 
 void Board::draw() const {
-  for (auto &border : borders) border->draw();
-  for (auto &brick : bricks) brick->draw();
-  for (auto &pill : pills) pill->draw();
-  for (auto &ball : balls) ball->draw();
-  for (auto &laser : lasers) laser->draw();
+  for (const auto &border : borders) border->draw();
+  for (const auto &brick : bricks) brick->draw();
+  for (const auto &pill : pills) pill->draw();
+  for (const auto &ball : balls) ball->draw();
+  for (const auto &laser : lasers) laser->draw();
   racket->draw();
 }
 
 void Board::solveBallCollisions() {
-  for (auto &ball : balls) {
+  for (const auto &ball : balls) {
     auto res = findCollision(*ball);
 
     if (!res.has_value()) {
@@ -190,7 +190,7 @@ Board::findCollisionResult Board::findCollision(Ball &ball) {
   findCollisionResult res;
   double min = numeric_limits<double>::max();
 
-  auto checkCollisions = [&](auto &seq) {
+  auto checkCollisions = [&](const auto &seq) {
     for (auto it = seq.begin(); it != seq.end(); it++) {
       if (ball.checkCollision(**it)) {
         double dist = ball.getCollDist(**it);
