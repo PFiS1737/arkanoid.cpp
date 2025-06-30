@@ -18,8 +18,8 @@ class Board final : public enable_shared_from_this<Board> {
   shared_ptr<Racket> racket;
 
   vector<shared_ptr<Brick>> bricks;
-  vector<shared_ptr<Pill>> pills;
   vector<shared_ptr<Ball>> balls;
+  vector<shared_ptr<Pill>> pills;
   vector<shared_ptr<Laser>> lasers;
 
   unique_ptr<BonusManager> bonusManager;

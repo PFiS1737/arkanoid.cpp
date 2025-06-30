@@ -82,17 +82,6 @@ void Board::shootLaser() {
 void Board::update(double dt) {
   if (dt == 0) return;
 
-  pills.erase(remove_if(pills.begin(), pills.end(),
-                        [&](const auto &pill) {
-                          pill->update(dt);
-                          if (pill->checkCatching(*racket)) {
-                            bonusManager->push(pill->bonus);
-                            return true;
-                          }
-                          return false;
-                        }),
-              pills.end());
-
   lasers.erase(remove_if(lasers.begin(), lasers.end(),
                          [&](const auto &laser) {
                            laser->update(dt);
@@ -109,6 +98,17 @@ void Board::update(double dt) {
                            return laser->center.y + LASER_LENGTH > BOARD_HEIGHT;
                          }),
                lasers.end());
+
+  pills.erase(remove_if(pills.begin(), pills.end(),
+                        [&](const auto &pill) {
+                          pill->update(dt);
+                          if (pill->checkCatching(*racket)) {
+                            bonusManager->push(pill->bonus);
+                            return true;
+                          }
+                          return false;
+                        }),
+              pills.end());
 
   balls.erase(remove_if(balls.begin(), balls.end(),
                         [&](const auto &ball) {
@@ -150,12 +150,12 @@ void Board::reset(vector<shared_ptr<Brick>> bricks) {
 }
 
 void Board::draw() const {
-  for (const auto &border : borders) border->draw();
-  for (const auto &brick : bricks) brick->draw();
+  for (const auto &laser : lasers) laser->draw();
   for (const auto &pill : pills) pill->draw();
   for (const auto &ball : balls) ball->draw();
-  for (const auto &laser : lasers) laser->draw();
+  for (const auto &brick : bricks) brick->draw();
   racket->draw();
+  for (const auto &border : borders) border->draw();
 }
 
 void Board::solveBallCollisions(const shared_ptr<Ball> &ball) {
