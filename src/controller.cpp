@@ -11,8 +11,6 @@ import shared.vec2;
 import configs;
 
 Controller::Controller() : board{make_shared<Board>()}, display{Display(board)} {
-  board->init();
-
   setupAllegro();
   startingGame();
 }

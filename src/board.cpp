@@ -17,68 +17,9 @@ Board::Board() {
                                         Vec2{BOARD_WIDTH + BORDER_THICKNESS, BOARD_HEIGHT - BORDER_THICKNESS}));
 }
 
-void Board::init() {
-  bonusManager = make_unique<BonusManager>(weak_from_this());
-}
-
 bool Board::isWin() {
   return life > 0 && (bricks.empty() || all_of(bricks.begin(), bricks.end(),
                                                [](const auto &brick) { return brick->color == COLOR_GOLD; }));
-}
-
-void Board::setRacketX(double centerX) {
-  auto ox = racket->center.x;
-  racket->setCenterX(centerX);
-
-  for (const auto &ball : balls) {
-    if (ball->stuck) {
-      double dx = ox - ball->center.x;
-      ball->center.x = racket->center.x - dx;
-    }
-  }
-}
-
-void Board::setRacketWideRate(double rate) {
-  racket->width *= rate;
-  racket->width = min(racket->width, BOARD_WIDTH);
-}
-
-void Board::setBallSlowRate(double rate) {
-  for (const auto &ball : balls) ball->speed *= rate;
-}
-
-bool Board::releaseBall() {
-  for (const auto &ball : balls) {
-    if (ball->stuck) {
-      ball->stuck = false;
-      return true;
-    }
-  }
-  return false;
-}
-
-void Board::splitBalls() {
-  vector<shared_ptr<Ball>> newBalls;
-
-  for (const auto &ball : balls) {
-    if (ball->stuck) continue;
-
-    Vec2 center = ball->center;
-    double radius = ball->radius;
-    Vec2 dirVec = ball->dirVec;
-    double speed = ball->speed;
-
-    // newBalls.push_back(make_shared<Ball>(center, radius, dirVec, speed));
-    newBalls.push_back(make_shared<Ball>(center, radius, dirVec.rotated(30), speed)); // TODO: random?
-    newBalls.push_back(make_shared<Ball>(center, radius, dirVec.rotated(-30), speed));
-  }
-
-  balls = newBalls;
-}
-
-void Board::shootLaser() {
-  if (!laser) return;
-  lasers.push_back(make_shared<Laser>(Vec2{racket->center.x, racket->center.y + RACKET_HEIGHT / 2}));
 }
 
 void Board::update(double dt) {
@@ -89,8 +30,8 @@ void Board::update(double dt) {
                            laser->update(dt);
                            // TODO: Maybe there is a better way to handle this?
                            // FIXME: We traverse all bricks for each laser here,
-                           //        and we traverse them again every time we call `solveBallCollisions`,
-                           //        and finally again in `remove_if`.
+                           //        and we traverse them again every time we call `solveBallCollisions` later,
+                           //        and finally again in `bricks.erase(remove_if)`.
                            for (const auto &brick : bricks) {
                              if (laser->checkHit(*brick)) {
                                brick->hit();
@@ -105,7 +46,7 @@ void Board::update(double dt) {
                         [&](const auto &pill) {
                           pill->update(dt);
                           if (pill->checkCatching(*racket)) {
-                            bonusManager->push(pill->bonus);
+                            applyBonus(pill->bonus);
                             return true;
                           }
                           return false;
@@ -135,11 +76,17 @@ void Board::update(double dt) {
                          }),
                bricks.end());
 
+  // NOTE: No need to remove deactivated bonuses.
+  for (auto &[bonus, time] : bonuses) {
+    time -= dt;
+    if (time <= 0) {
+      onBonusDeactivate(bonus);
+    }
+  }
+
   if (balls.empty() && --life > 0) {
     balls.push_back(Ball::make());
   }
-
-  bonusManager->update(dt);
 }
 
 void Board::reset(vector<shared_ptr<Brick>> bricks) {
@@ -218,4 +165,115 @@ Board::findCollisionResult Board::findCollision(const shared_ptr<Ball> &ball) {
   }
 
   return res;
+}
+
+void Board::applyBonus(const Bonus &bonus) {
+  if (bonus.type == Bonus::Type::None) return;
+
+  if (bonus.isStatic) {
+    onBonusActivate(bonus);
+    return;
+  }
+
+  bonuses[bonus] = bonus.duration;
+  auto it = bonuses.find(bonus);
+  if (it == bonuses.end()) {
+    onBonusActivate(bonus);
+  }
+}
+
+void Board::onBonusActivate(Bonus::Type bonus) {
+  switch (bonus) {
+    case Bonus::Type::ExtraLife:
+      life++;
+      break;
+    case Bonus::Type::SlowBall:
+      setBallSlowRate(BONUS_SLOW_BALL_RATE);
+      break;
+    case Bonus::Type::WideRacket:
+      setRacketWideRate(BONUS_WIDE_RACKET_RATE);
+      break;
+    case Bonus::Type::StickyRacket:
+      sticky = true;
+      break;
+    case Bonus::Type::SplitBall:
+      splitBalls();
+      break;
+    case Bonus::Type::Laser:
+      laser = true;
+      break;
+    default:
+      throw runtime_error("Unknown bonus type activated");
+  }
+}
+
+void Board::onBonusDeactivate(Bonus::Type bonus) {
+  switch (bonus) {
+    case Bonus::Type::SlowBall:
+      setBallSlowRate(1 / BONUS_SLOW_BALL_RATE);
+      break;
+    case Bonus::Type::WideRacket:
+      setRacketWideRate(1 / BONUS_WIDE_RACKET_RATE);
+      break;
+    case Bonus::Type::Laser:
+      laser = false;
+      break;
+    default:
+      throw runtime_error("Unknown bonus type deactivated");
+  }
+}
+
+void Board::setRacketX(double x) {
+  auto ox = racket->center.x;
+  racket->setCenterX(x);
+
+  for (const auto &ball : balls) {
+    if (ball->stuck) {
+      double dx = ox - ball->center.x;
+      ball->center.x = racket->center.x - dx;
+    }
+  }
+}
+
+void Board::setRacketWideRate(double rate) {
+  racket->width *= rate;
+  racket->width = min(racket->width, BOARD_WIDTH);
+}
+
+void Board::setBallSlowRate(double rate) {
+  for (const auto &ball : balls) ball->speed *= rate;
+}
+
+bool Board::releaseBall() {
+  for (const auto &ball : balls) {
+    if (ball->stuck) {
+      ball->stuck = false;
+      return true;
+    }
+  }
+  return false;
+}
+
+void Board::splitBalls() {
+  vector<shared_ptr<Ball>> newBalls;
+
+  for (const auto &ball : balls) {
+    if (ball->stuck) continue;
+
+    Vec2 center = ball->center;
+    double radius = ball->radius;
+    Vec2 dirVec = ball->dirVec;
+    double speed = ball->speed;
+
+    // newBalls.push_back(make_shared<Ball>(center, radius, dirVec, speed));
+    newBalls.push_back(make_shared<Ball>(center, radius, dirVec.rotated(30), speed)); // TODO: random?
+    newBalls.push_back(make_shared<Ball>(center, radius, dirVec.rotated(-30), speed));
+  }
+
+  balls = newBalls;
+}
+
+void Board::shootLaser() {
+  if (!laser) return;
+  lasers.push_back(make_shared<Laser>(Vec2{racket->center.x, racket->center.y + RACKET_HEIGHT / 2}));
 }
