@@ -1,12 +1,15 @@
-#pragma once
+module;
 
-#include "shared/bonus.hpp"
-#include <memory>
-#include <unordered_map>
+class Board; // HACK: Forward declaration to avoid circular dependency
 
-class Board; // HACK: avoid circular dependency
+export module bonus_manager;
 
-class BonusManager {
+import shared.bonus;
+import std;
+
+using namespace std;
+
+export class BonusManager {
   weak_ptr<Board> board;
   unordered_map<Bonus::Type, double> bonuses;
 

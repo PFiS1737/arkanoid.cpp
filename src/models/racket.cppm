@@ -1,8 +1,9 @@
-#pragma once
+export module models.racket;
 
-#include "../shared/bounceable.hpp"
+import shared.bounceable;
+import shared.vec2;
 
-struct Racket final : Bounceable {
+export struct Racket final : Bounceable {
   Racket(const Vec2 &center, double width, double height);
 
   Racket(const Racket &) = delete;

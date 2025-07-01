@@ -9,10 +9,10 @@ config mode:
 
 [no-exit-message]
 build:
-    @echo Generating compile_commands.json ...
-    @xmake project -k compile_commands --lsp=clangd build >/dev/null
-    @echo Done
-    @echo
+    @# echo Generating compile_commands.json ...
+    @# xmake project -k compile_commands --lsp=clangd build >/dev/null
+    @# echo Done
+    @# echo
     @xmake build
 
 [no-exit-message]

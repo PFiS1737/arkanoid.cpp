@@ -1,4 +1,9 @@
-#include "border.hpp"
+module models.border;
+
+import configs;
+import std;
+
+using namespace std;
 
 Border::Border(const Vec2 &topLeft, const Vec2 &bottomRight)
     : Bounceable{

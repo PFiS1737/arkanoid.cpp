@@ -1,8 +1,10 @@
-#pragma once
+export module shared.bounceable;
 
-#include "rectangle.hpp"
+import shared.color;
+import shared.rectangle;
+import shared.vec2;
 
-struct Bounceable : Rectangle {
+export struct Bounceable : Rectangle {
   enum class BounceType { Vertical, Horizontal, Corner };
 
   Bounceable(const Vec2 &center, double width, double height);

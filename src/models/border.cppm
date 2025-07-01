@@ -1,8 +1,9 @@
-#pragma once
+export module models.border;
 
-#include "../shared/bounceable.hpp"
+import shared.bounceable;
+import shared.vec2;
 
-struct Border final : Bounceable {
+export struct Border final : Bounceable {
   Border(const Vec2 &topLeft, const Vec2 &bottomRight);
 
   Border(const Border &) = delete;

@@ -1,5 +1,10 @@
-#include "circle.hpp"
+module;
+
 #include <allegro5/allegro_primitives.h>
+
+module shared.circle;
+
+import configs;
 
 Circle::Circle(const Vec2 &center, double radius, const Vec2 &dirVec, double speed, const Color &color)
     : Moveable(center, dirVec, speed), radius{radius}, color{color} {

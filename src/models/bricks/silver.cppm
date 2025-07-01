@@ -1,8 +1,14 @@
-#pragma once
+export module models.bricks.silver;
 
-#include "brick.hpp"
+import models.brick;
+import shared.bonus;
+import shared.vec2;
+import configs;
+import std;
 
-struct SilverBrick final : Brick {
+using namespace std;
+
+export struct SilverBrick final : Brick {
   SilverBrick(const Vec2 &center, const Bonus &bonus);
 
   SilverBrick(const SilverBrick &) = delete;

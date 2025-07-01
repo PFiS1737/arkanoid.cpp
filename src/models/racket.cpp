@@ -1,6 +1,9 @@
-#include "racket.hpp"
-#include <algorithm>
-#include <cmath>
+module models.racket;
+
+import configs;
+import std;
+
+using namespace std;
 
 Racket::Racket(const Vec2 &center, double width, double height) : Bounceable{center, width, height, RACKET_COLOR} {
 }

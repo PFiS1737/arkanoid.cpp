@@ -1,6 +1,10 @@
-#include "laser.hpp"
-#include "../../configs.hpp"
+module;
+
 #include <allegro5/allegro_primitives.h>
+
+module models.laser;
+
+import configs;
 
 Laser::Laser(const Vec2 &center) : Moveable(center, Vec2{0, 1}, LASER_SPEED) {
 }
@@ -12,6 +16,6 @@ bool Laser::checkHit(const Rectangle &rect) {
 }
 
 void Laser::draw() const {
-  double y = SCREEN_HEIGHT - center.y;
+  const float y = SCREEN_HEIGHT - center.y;
   al_draw_filled_rectangle(center.x - 1, y, center.x + 1, y - LASER_LENGTH, COLOR_RED);
 }

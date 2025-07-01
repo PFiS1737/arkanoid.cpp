@@ -1,5 +1,7 @@
-#include "controller.hpp"
-#include <iostream>
+import controller;
+import std;
+
+using namespace std;
 
 int main() {
   try {

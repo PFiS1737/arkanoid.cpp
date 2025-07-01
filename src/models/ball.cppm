@@ -1,10 +1,15 @@
-#pragma once
+export module models.ball;
 
-#include "../shared/bounceable.hpp"
-#include "../shared/circle.hpp"
-#include <memory>
+import shared.bounceable;
+import shared.circle;
+import shared.rectangle;
+import shared.vec2;
+import configs;
+import std;
 
-struct Ball final : Circle {
+using namespace std;
+
+export struct Ball final : Circle {
   bool stuck = false;
 
   Ball(const Vec2 &center, double radius = BALL_RADIUS, const Vec2 &dirVec = BALL_INITIAL_DIRECTION,
@@ -24,5 +29,5 @@ struct Ball final : Circle {
   void update(double dt) override;
 
 private:
-  Vec2 getCollPosOnRect(const shared_ptr<Rectangle> &rectangle) const;
+  Vec2 getCollPosOnRect(const shared_ptr<Rectangle> &rect) const;
 };

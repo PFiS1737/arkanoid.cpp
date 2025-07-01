@@ -1,7 +1,10 @@
-#include "color.hpp"
-#include "../../configs.hpp"
-#include <iostream>
-#include <unordered_map>
+module;
+
+#include <allegro5/color.h>
+
+module shared.color;
+
+import configs;
 
 Color::Color(unsigned char r, unsigned char g, unsigned char b, size_t score)
     : color{al_map_rgb(r, g, b)}, score(score) {

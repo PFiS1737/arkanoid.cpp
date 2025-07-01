@@ -1,12 +1,15 @@
-#pragma once
+module;
 
-#include "board.hpp"
 #include <allegro5/allegro_font.h>
-#include <memory>
+
+export module display;
+
+import board;
+import std;
 
 using namespace std;
 
-class Display final {
+export class Display final {
   const shared_ptr<Board> board;
 
   ALLEGRO_DISPLAY *display;

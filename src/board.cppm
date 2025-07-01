@@ -1,19 +1,18 @@
-#pragma once
+export module board;
 
-#include "bonus_manager.hpp"
-#include "models/ball.hpp"
-#include "models/border.hpp"
-#include "models/bricks/brick.hpp"
-#include "models/laser.hpp"
-#include "models/pill.hpp"
-#include "models/racket.hpp"
-#include <optional>
-#include <variant>
-#include <vector>
+import models.ball;
+import models.border;
+import models.brick;
+import models.laser;
+import models.pill;
+import models.racket;
+import bonus_manager;
+import configs;
+import std;
 
 using namespace std;
 
-class Board final : public enable_shared_from_this<Board> {
+export class Board final : public enable_shared_from_this<Board> {
   vector<shared_ptr<Border>> borders;
   shared_ptr<Racket> racket;
 

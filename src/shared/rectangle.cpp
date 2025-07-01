@@ -1,5 +1,10 @@
-#include "rectangle.hpp"
+module;
+
 #include <allegro5/allegro_primitives.h>
+
+module shared.rectangle;
+
+import configs;
 
 Rectangle::Rectangle(const Vec2 &center, double width, double height, const Color &color, const Color &frameColor)
     : center(center), width{width}, height{height}, color{color}, frameColor{frameColor} {

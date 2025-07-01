@@ -1,5 +1,10 @@
-#include "ball.hpp"
+module;
+
 #include <allegro5/allegro_primitives.h>
+
+module models.ball;
+
+import configs;
 
 Ball::Ball(const Vec2 &center, double radius, const Vec2 &dirVec, double speed)
     : Circle(center, radius, dirVec, speed, BALL_COLOR) {
@@ -8,7 +13,7 @@ Ball::Ball(const Vec2 &center, double radius, const Vec2 &dirVec, double speed)
 shared_ptr<Ball> Ball::make() {
   double x = BOARD_WIDTH / 2 + BORDER_THICKNESS;
   double y = RACKET_Y_POSITION + RACKET_HEIGHT / 2 + BALL_RADIUS;
-  return std ::make_shared<Ball>(Vec2{x, y});
+  return make_shared<Ball>(Vec2{x, y});
 }
 
 Vec2 Ball::getCollPosOnRect(const shared_ptr<Rectangle> &rect) const {

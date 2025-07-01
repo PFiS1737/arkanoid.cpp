@@ -1,6 +1,8 @@
-#include "board.hpp"
-#include <algorithm>
-#include <limits>
+module board;
+
+import shared.bonus;
+import shared.vec2;
+import configs;
 
 Board::Board() {
   racket =

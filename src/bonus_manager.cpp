@@ -1,6 +1,7 @@
-#include "bonus_manager.hpp"
-#include "board.hpp"
-#include <stdexcept>
+module bonus_manager;
+
+import board;
+import configs;
 
 BonusManager::BonusManager(const weak_ptr<Board> &board) : board{board}, bonuses{} {
 }

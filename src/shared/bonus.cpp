@@ -1,7 +1,6 @@
-#include "bonus.hpp"
-#include "../../configs.hpp"
-#include <iostream>
-#include <unordered_map>
+module shared.bonus;
+
+import configs;
 
 Bonus::Bonus(Type type) : type{type}, color{COLOR_BLACK} {
   if (type != Type::None) throw runtime_error("Only Type::None is allowed with this constructor");

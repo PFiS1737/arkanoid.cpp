@@ -1,9 +1,11 @@
-#pragma once
+export module shared.circle;
 
-#include "../../configs.hpp"
-#include "moveable.hpp"
+import shared.color;
+import shared.moveable;
+import shared.vec2;
+import configs;
 
-struct Circle : Moveable {
+export struct Circle : Moveable {
   double radius;
   Color color;
 
