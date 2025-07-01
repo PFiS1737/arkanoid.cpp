@@ -15,6 +15,7 @@ export struct Brick : Bounceable {
   bool destroyed = false;
 
   Brick(const Vec2 &center, const Color &color, const Bonus &bonus = BONUS_NONE);
+  virtual ~Brick() = default;
 
   Brick(const Brick &) = delete;
   Brick(Brick &&) = delete;
