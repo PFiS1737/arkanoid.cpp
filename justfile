@@ -12,7 +12,7 @@ build:
     @xmake build
 
 [no-exit-message]
-run: build
+run:
     @xmake run --workdir=.
 
 clean:
