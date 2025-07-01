@@ -1,4 +1,7 @@
+---@diagnostic disable: param-type-mismatch
+
 add_rules("mode.debug", "mode.release")
+add_rules("plugin.compile_commands.autoupdate", { outputdir = "build", lsp = "clangd" })
 
 set_project("arkanoid.cpp")
 set_version("1.0.0")
@@ -13,13 +16,6 @@ target("arkanoid.cpp", function()
 	add_files("src/**.cpp", "src/**.cppm", "configs.cppm")
 
 	add_cxxflags("-Wall", "-Wextra", "-pedantic")
-
-	if is_mode("debug") then
-		add_cxxflags("-g")
-		add_defines("DEBUG")
-	else
-		add_cxxflags("-O3")
-	end
 
 	add_packages("allegro")
 end)
