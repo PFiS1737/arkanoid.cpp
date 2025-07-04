@@ -14,10 +14,10 @@ The racket will follow the mouse movement. And, there are the following key bind
 
 ### ⚙️ Configuration
 
-- Check [configs.cppm](./configs.cppm) for the game configuration options.
+- Check [configs.hpp](./configs.hpp) for the game configuration options.
 - Check [level.txt](./ressources/level.txt) for building your own levels.
   - Note that the bricks coordinates are relative to the bottom-left corner of the screen.
-  - And make sure they are adjusted to the `size`'s defined in [configs.cppm](./configs.cppm).
+  - And make sure they are adjusted to the `size`'s defined in [configs.hpp](./configs.hpp).
 
 ## 🎯 Roadmap
 
@@ -46,7 +46,7 @@ This project is easy to build and run with modern tools like `xmake`.
 #### CLI Tools
 
 - `gcc` (with C++20 support)
-- [`xmake`](https://xmake.io) (optional, or use `cmake ^4.0.0` and `ninja`)
+- [`xmake`](https://xmake.io)
 - [`just`](https://github.com/casey/just) (optional)
 
 #### System Libraries
@@ -64,22 +64,8 @@ This project is easy to build and run with modern tools like `xmake`.
 > See [`justfile`](./justfile) and [`xmake.lua`](./xmake.lua) for more details.
 
 ```bash
-# build
-just
-
-# run
-just run
-```
-
-> See [`CMakeLists.txt`](./CMakeLists.txt) for more details.
-
-```bash
-# build
-cmake -B build -G Ninja -S .
-ninja -C build
-
-# run
-./build/arkanoid.cpp
+just       # build the project
+just run   # build and run the game
 ```
 
 ## References
