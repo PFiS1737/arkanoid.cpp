@@ -1,10 +1,6 @@
-module;
-
-#include <allegro5/allegro_font.h>
-
-module models.bricks.silver;
-
-import display;
+#include "silver.hpp"
+#include "../../display.hpp"
+#include <allegro5/allegro_primitives.h>
 
 SilverBrick::SilverBrick(const Vec2 &center, const Bonus &bonus) : Brick{center, COLOR_SILVER, bonus} {
 }

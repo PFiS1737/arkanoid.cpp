@@ -1,14 +1,9 @@
-module;
-
-#include <allegro5/allegro.h>
-
-module controller;
-
-import models.brick;
-import models.bricks.gold;
-import models.bricks.silver;
-import shared.vec2;
-import configs;
+#include "controller.hpp"
+#include "models/bricks/gold.hpp"
+#include "models/bricks/silver.hpp"
+#include <fstream>
+#include <iostream>
+#include <sstream>
 
 Controller::Controller() : board{make_unique<Board>()}, display{Display(board)} {
   setupAllegro();

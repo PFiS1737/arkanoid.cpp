@@ -1,10 +1,8 @@
-export module shared.rectangle;
+#pragma once
 
-import shared.color;
-import shared.vec2;
-import configs;
+#include "../../configs.hpp"
 
-export struct Rectangle {
+struct Rectangle {
   Vec2 center;
   double width;
   double height;

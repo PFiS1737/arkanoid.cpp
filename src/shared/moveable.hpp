@@ -1,8 +1,8 @@
-export module shared.moveable;
+#pragma once
 
-import shared.vec2;
+#include "vec2.hpp"
 
-export struct Moveable {
+struct Moveable {
   Vec2 center;
   Vec2 dirVec; // normalized
   double speed;

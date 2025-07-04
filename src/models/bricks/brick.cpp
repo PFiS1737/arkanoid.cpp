@@ -1,10 +1,5 @@
-module;
-
-#include <allegro5/allegro_font.h>
-
-module models.brick;
-
-import display;
+#include "brick.hpp"
+#include "../../display.hpp"
 
 Brick::Brick(const Vec2 &center, const Color &color, const Bonus &bonus)
     : Bounceable{center, BRICK_WIDTH, BRICK_HEIGHT, color}, bonus{bonus} {

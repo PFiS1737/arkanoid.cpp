@@ -1,6 +1,6 @@
-module board;
-
-import shared.vec2;
+#include "board.hpp"
+#include <algorithm>
+#include <limits>
 
 Board::Board() {
   racket = Racket::make(Vec2{BOARD_WIDTH / 2 + BORDER_THICKNESS, RACKET_Y_POSITION}, RACKET_WIDTH, RACKET_HEIGHT);

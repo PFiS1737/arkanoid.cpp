@@ -1,13 +1,10 @@
-export module models.laser;
+#pragma once
 
-import shared.moveable;
-import shared.rectangle;
-import shared.vec2;
-import std;
+#include "../shared/moveable.hpp"
+#include "../shared/rectangle.hpp"
+#include <memory>
 
-using namespace std;
-
-export struct Laser final : Moveable {
+struct Laser final : Moveable {
   Laser(const Vec2 &center);
 
   Laser(const Laser &) = delete;

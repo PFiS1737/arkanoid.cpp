@@ -1,14 +1,10 @@
-export module models.pill;
+#pragma once
 
-import shared.bonus;
-import shared.circle;
-import shared.rectangle;
-import shared.vec2;
-import std;
+#include "../shared/circle.hpp"
+#include "../shared/rectangle.hpp"
+#include <memory>
 
-using namespace std;
-
-export struct Pill final : Circle {
+struct Pill final : Circle {
   Bonus bonus;
 
   Pill(const Vec2 &center, const Bonus &bonus);

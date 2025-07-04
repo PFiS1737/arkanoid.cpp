@@ -1,8 +1,4 @@
-module;
-
-#include <allegro5/allegro_primitives.h>
-
-module models.ball;
+#include "ball.hpp"
 
 Ball::Ball(const Vec2 &center, double radius, const Vec2 &dirVec, double speed)
     : Circle(center, radius, dirVec, speed, BALL_COLOR) {

@@ -1,11 +1,7 @@
-module;
-
+#include "display.hpp"
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
-
-module display;
-
-import configs;
+#include <stdexcept>
 
 ALLEGRO_FONT *Display::font24 = nullptr;
 ALLEGRO_FONT *Display::font50 = nullptr;

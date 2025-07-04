@@ -1,16 +1,10 @@
-module;
+#pragma once
 
-#include <allegro5/allegro.h>
-
-export module controller;
-
-import display;
-import board;
-import std;
+#include "display.hpp"
 
 using namespace std;
 
-export class Controller final {
+class Controller final {
   bool done = false;
   bool draw = false;
 

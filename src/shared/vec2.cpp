@@ -1,6 +1,6 @@
-module shared.vec2;
-
-import std;
+#include "vec2.hpp"
+#include <algorithm>
+#include <cmath>
 
 using namespace std;
 

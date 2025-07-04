@@ -45,7 +45,7 @@ This project is easy to build and run with modern tools like `xmake`.
 
 #### CLI Tools
 
-- `clang` (with C++23 support)
+- `gcc` (with C++20 support)
 - [`xmake`](https://xmake.io) (optional, or use `cmake ^4.0.0` and `ninja`)
 - [`just`](https://github.com/casey/just) (optional)
 

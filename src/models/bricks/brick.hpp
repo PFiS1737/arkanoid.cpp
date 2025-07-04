@@ -1,15 +1,9 @@
-export module models.brick;
+#pragma once
 
-import shared.bonus;
-import shared.bounceable;
-import shared.color;
-import shared.vec2;
-import configs;
-import std;
+#include "../../shared/bounceable.hpp"
+#include <memory>
 
-using namespace std;
-
-export struct Brick : Bounceable {
+struct Brick : Bounceable {
   Bonus bonus;
 
   bool destroyed = false;

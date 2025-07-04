@@ -1,9 +1,8 @@
-export module models.bricks.gold;
+#pragma once
 
-import models.brick;
-import shared.vec2;
+#include "brick.hpp"
 
-export struct GoldBrick final : Brick {
+struct GoldBrick final : Brick {
   GoldBrick(const Vec2 &center);
 
   GoldBrick(const GoldBrick &) = delete;

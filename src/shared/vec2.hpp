@@ -1,6 +1,6 @@
-export module shared.vec2;
+#pragma once
 
-export struct Vec2 final {
+struct Vec2 final {
   double x;
   double y;
 

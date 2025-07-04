@@ -1,11 +1,8 @@
-export module shared.bonus;
+#pragma once
 
-import shared.color;
-import std;
+#include "color.hpp"
 
-using namespace std;
-
-export struct Bonus {
+struct Bonus {
   // NOTE: the effects of the bonus are defined in `bonus_manager.cpp`
   enum class Type {
     None,

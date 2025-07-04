@@ -1,4 +1,4 @@
-module shared.bounceable;
+#include "bounceable.hpp"
 
 Bounceable::Bounceable(const Vec2 &center, double width, double height) : Rectangle{center, width, height} {
 }

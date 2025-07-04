@@ -1,10 +1,5 @@
-module;
-
+#include "laser.hpp"
 #include <allegro5/allegro_primitives.h>
-
-module models.laser;
-
-import configs;
 
 Laser::Laser(const Vec2 &center) : Moveable(center, Vec2{0, 1}, LASER_SPEED) {
 }

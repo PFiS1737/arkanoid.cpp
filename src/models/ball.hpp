@@ -1,15 +1,10 @@
-export module models.ball;
+#pragma once
 
-import shared.bounceable;
-import shared.circle;
-import shared.rectangle;
-import shared.vec2;
-import configs;
-import std;
+#include "../shared/bounceable.hpp"
+#include "../shared/circle.hpp"
+#include <memory>
 
-using namespace std;
-
-export struct Ball final : Circle {
+struct Ball final : Circle {
   bool stuck = false;
 
   Ball(const Vec2 &center, double radius = BALL_RADIUS, const Vec2 &dirVec = BALL_INITIAL_DIRECTION,

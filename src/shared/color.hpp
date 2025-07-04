@@ -1,14 +1,11 @@
-module;
+#pragma once
 
 #include <allegro5/color.h>
-
-export module shared.color;
-
-import std;
+#include <string>
 
 using namespace std;
 
-export struct Color final {
+struct Color final {
   ALLEGRO_COLOR color;
   size_t score;
 
