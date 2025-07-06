@@ -175,11 +175,12 @@ void Board::applyBonus(const Bonus &bonus) {
     return;
   }
 
-  bonuses[bonus] = bonus.duration;
   auto it = bonuses.find(bonus);
   if (it == bonuses.end()) {
     onBonusActivate(bonus);
   }
+
+  bonuses[bonus] = bonus.duration;
 }
 
 void Board::onBonusActivate(Bonus::Type bonus) {
