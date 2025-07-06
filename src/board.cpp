@@ -1,8 +1,6 @@
 module board;
 
-import shared.bonus;
 import shared.vec2;
-import configs;
 
 Board::Board() {
   racket = Racket::make(Vec2{BOARD_WIDTH / 2 + BORDER_THICKNESS, RACKET_Y_POSITION}, RACKET_WIDTH, RACKET_HEIGHT);

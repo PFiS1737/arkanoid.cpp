@@ -5,7 +5,6 @@ module;
 module models.bricks.silver;
 
 import display;
-import configs;
 
 SilverBrick::SilverBrick(const Vec2 &center, const Bonus &bonus) : Brick{center, COLOR_SILVER, bonus} {
 }

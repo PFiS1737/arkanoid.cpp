@@ -5,7 +5,6 @@ module;
 module models.brick;
 
 import display;
-import configs;
 
 Brick::Brick(const Vec2 &center, const Color &color, const Bonus &bonus)
     : Bounceable{center, BRICK_WIDTH, BRICK_HEIGHT, color}, bonus{bonus} {

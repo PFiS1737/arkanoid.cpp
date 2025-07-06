@@ -4,8 +4,6 @@ module;
 
 module models.ball;
 
-import configs;
-
 Ball::Ball(const Vec2 &center, double radius, const Vec2 &dirVec, double speed)
     : Circle(center, radius, dirVec, speed, BALL_COLOR) {
 }
