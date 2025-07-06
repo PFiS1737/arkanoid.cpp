@@ -13,18 +13,18 @@ import std;
 using namespace std;
 
 export class Board final : public enable_shared_from_this<Board> {
-  vector<shared_ptr<Border>> borders;
-  shared_ptr<Racket> racket;
+  vector<unique_ptr<Border>> borders;
+  unique_ptr<Racket> racket;
 
-  vector<shared_ptr<Brick>> bricks;
-  vector<shared_ptr<Ball>> balls;
-  vector<shared_ptr<Pill>> pills;
-  vector<shared_ptr<Laser>> lasers;
+  vector<unique_ptr<Brick>> bricks;
+  vector<unique_ptr<Ball>> balls;
+  vector<unique_ptr<Pill>> pills;
+  vector<unique_ptr<Laser>> lasers;
 
-  void solveBallCollisions(const shared_ptr<Ball> &ball);
+  void solveBallCollisions(const unique_ptr<Ball> &ball);
 
-  using findCollisionResult = optional<variant<shared_ptr<Brick>, shared_ptr<Border>, shared_ptr<Racket>>>;
-  findCollisionResult findCollision(const shared_ptr<Ball> &ball);
+  using findCollisionResult = optional<variant<Brick *, Border *, Racket *>>;
+  findCollisionResult findCollision(const unique_ptr<Ball> &ball);
 
   unordered_map<Bonus::Type, double> bonuses;
 
@@ -57,7 +57,7 @@ public:
   void shootLaser();
 
   void update(double dt);
-  void reset(vector<shared_ptr<Brick>> bricks);
+  void reset(vector<unique_ptr<Brick>> &bricks);
 
   void draw() const;
 };

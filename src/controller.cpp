@@ -10,7 +10,7 @@ import models.bricks.silver;
 import shared.vec2;
 import configs;
 
-Controller::Controller() : board{make_shared<Board>()}, display{Display(board)} {
+Controller::Controller() : board{make_unique<Board>()}, display{Display(board)} {
   setupAllegro();
   startingGame();
 }
@@ -116,7 +116,7 @@ void Controller::loadLevel() {
     throw runtime_error("Failed to open file: " + LEVEL_PATH);
   }
 
-  vector<shared_ptr<Brick>> bricks;
+  vector<unique_ptr<Brick>> bricks;
 
   string line;
   while (getline(file, line)) {

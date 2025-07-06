@@ -6,14 +6,14 @@ import configs;
 
 Board::Board() {
   racket =
-      make_shared<Racket>(Vec2{BOARD_WIDTH / 2 + BORDER_THICKNESS, RACKET_Y_POSITION}, RACKET_WIDTH, RACKET_HEIGHT);
+      make_unique<Racket>(Vec2{BOARD_WIDTH / 2 + BORDER_THICKNESS, RACKET_Y_POSITION}, RACKET_WIDTH, RACKET_HEIGHT);
 
   // left
-  borders.push_back(make_shared<Border>(Vec2{0, BOARD_HEIGHT}, Vec2{BORDER_THICKNESS, 0}));
+  borders.push_back(make_unique<Border>(Vec2{0, BOARD_HEIGHT}, Vec2{BORDER_THICKNESS, 0}));
   // right
-  borders.push_back(make_shared<Border>(Vec2{SCREEN_WIDTH - BORDER_THICKNESS, BOARD_HEIGHT}, Vec2{SCREEN_WIDTH, 0}));
+  borders.push_back(make_unique<Border>(Vec2{SCREEN_WIDTH - BORDER_THICKNESS, BOARD_HEIGHT}, Vec2{SCREEN_WIDTH, 0}));
   // top
-  borders.push_back(make_shared<Border>(Vec2{0, BOARD_HEIGHT},
+  borders.push_back(make_unique<Border>(Vec2{0, BOARD_HEIGHT},
                                         Vec2{BOARD_WIDTH + BORDER_THICKNESS, BOARD_HEIGHT - BORDER_THICKNESS}));
 }
 
@@ -89,10 +89,10 @@ void Board::update(double dt) {
   }
 }
 
-void Board::reset(vector<shared_ptr<Brick>> bricks) {
+void Board::reset(vector<unique_ptr<Brick>> &bricks) {
   life = INITIAL_NUM_LIVES;
   score = 0;
-  this->bricks = bricks;
+  this->bricks = std::move(bricks);
   pills.clear();
   balls.clear();
   balls.push_back(Ball::make());
@@ -107,7 +107,7 @@ void Board::draw() const {
   for (const auto &border : borders) border->draw();
 }
 
-void Board::solveBallCollisions(const shared_ptr<Ball> &ball) {
+void Board::solveBallCollisions(const unique_ptr<Ball> &ball) {
   auto res = findCollision(ball);
 
   if (!res.has_value()) {
@@ -116,36 +116,36 @@ void Board::solveBallCollisions(const shared_ptr<Ball> &ball) {
 
   auto value = res.value();
 
-  if (holds_alternative<shared_ptr<Racket>>(value)) {
-    auto racket = get<shared_ptr<Racket>>(value);
-    ball->collide(racket);
+  if (holds_alternative<Racket *>(value)) {
+    auto racket = get<Racket *>(value);
+    ball->collide(*racket);
     if (sticky) {
       ball->stuck = true;
       sticky = false;
     }
   }
 
-  else if (holds_alternative<shared_ptr<Brick>>(value)) {
-    auto brick = get<shared_ptr<Brick>>(value);
-    ball->collide(brick);
+  else if (holds_alternative<Brick *>(value)) {
+    auto brick = get<Brick *>(value);
+    ball->collide(*brick);
     brick->hit();
   }
 
-  else if (holds_alternative<shared_ptr<Border>>(value)) {
-    auto border = get<shared_ptr<Border>>(value);
-    ball->collide(border);
+  else if (holds_alternative<Border *>(value)) {
+    auto border = get<Border *>(value);
+    ball->collide(*border);
   }
 }
 
-Board::findCollisionResult Board::findCollision(const shared_ptr<Ball> &ball) {
+Board::findCollisionResult Board::findCollision(const unique_ptr<Ball> &ball) {
   findCollisionResult res;
   double min = numeric_limits<double>::max();
 
   auto checkCollisions = [&](const auto &rect) {
-    if (ball->checkCollision(rect)) {
-      double dist = ball->getCollDist(rect);
+    if (ball->checkCollision(*rect)) {
+      double dist = ball->getCollDist(*rect);
       if (dist < min) {
-        res = rect;
+        res = rect.get();
         min = dist;
       }
     }
@@ -247,11 +247,11 @@ bool Board::releaseBall() {
 }
 
 void Board::splitBalls() {
-  vector<shared_ptr<Ball>> newBalls;
+  vector<unique_ptr<Ball>> newBalls;
 
-  for (const auto &ball : balls) {
+  for (auto &ball : balls) {
     if (ball->stuck) {
-      newBalls.push_back(ball);
+      newBalls.push_back(std::move(ball));
       continue;
     }
 
@@ -260,15 +260,15 @@ void Board::splitBalls() {
     Vec2 dirVec = ball->dirVec;
     double speed = ball->speed;
 
-    // newBalls.push_back(make_shared<Ball>(center, radius, dirVec, speed));
-    newBalls.push_back(make_shared<Ball>(center, radius, dirVec.rotated(30), speed)); // TODO: random?
-    newBalls.push_back(make_shared<Ball>(center, radius, dirVec.rotated(-30), speed));
+    // newBalls.push_back(make_unique<Ball>(center, radius, dirVec, speed));
+    newBalls.push_back(make_unique<Ball>(center, radius, dirVec.rotated(30), speed)); // TODO: random?
+    newBalls.push_back(make_unique<Ball>(center, radius, dirVec.rotated(-30), speed));
   }
 
-  balls = newBalls;
+  balls = std::move(newBalls);
 }
 
 void Board::shootLaser() {
   if (!laser) return;
-  lasers.push_back(make_shared<Laser>(Vec2{racket->center.x, racket->center.y + RACKET_HEIGHT / 2}));
+  lasers.push_back(make_unique<Laser>(Vec2{racket->center.x, racket->center.y + RACKET_HEIGHT / 2}));
 }

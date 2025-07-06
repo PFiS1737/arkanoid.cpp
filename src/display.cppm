@@ -10,7 +10,7 @@ import std;
 using namespace std;
 
 export class Display final {
-  const shared_ptr<Board> board;
+  const Board &board;
 
   ALLEGRO_DISPLAY *display;
 
@@ -22,7 +22,7 @@ public:
   static ALLEGRO_FONT *font50;
   static ALLEGRO_FONT *fontBrick;
 
-  Display(const shared_ptr<Board> &board);
+  Display(const unique_ptr<Board> &board);
   ~Display();
 
   Display(const Display &) = delete;

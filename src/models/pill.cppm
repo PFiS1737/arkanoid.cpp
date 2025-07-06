@@ -18,7 +18,7 @@ export struct Pill final : Circle {
   Pill &operator=(const Pill &) = delete;
   Pill &operator=(Pill &&) = delete;
 
-  static shared_ptr<Pill> make(const Vec2 &center, const Bonus &bonus);
+  static unique_ptr<Pill> make(const Vec2 &center, const Bonus &bonus);
 
   bool checkCatching(const Rectangle &rect);
 };

@@ -23,18 +23,18 @@ export struct Brick : Bounceable {
   Brick &operator=(Brick &&) = delete;
 
   template <derived_from<Brick> T>
-  static shared_ptr<T> make(const Vec2 &center) {
-    return make_shared<T>(center);
+  static unique_ptr<T> make(const Vec2 &center) {
+    return make_unique<T>(center);
   }
 
   template <derived_from<Brick> T>
-  static shared_ptr<T> make(const Vec2 &center, const Bonus &bonus) {
-    return make_shared<T>(center, bonus);
+  static unique_ptr<T> make(const Vec2 &center, const Bonus &bonus) {
+    return make_unique<T>(center, bonus);
   }
 
   template <derived_from<Brick> T>
-  static shared_ptr<T> make(const Vec2 &center, const Color &color, const Bonus &bonus) {
-    return make_shared<T>(center, color, bonus);
+  static unique_ptr<T> make(const Vec2 &center, const Color &color, const Bonus &bonus) {
+    return make_unique<T>(center, color, bonus);
   }
 
   virtual size_t getScore() const;

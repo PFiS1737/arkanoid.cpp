@@ -16,7 +16,7 @@ export class Controller final {
 
   uint8_t tick = 0;
 
-  shared_ptr<Board> board;
+  unique_ptr<Board> board;
   Display display;
 
   ALLEGRO_TIMER *timer;

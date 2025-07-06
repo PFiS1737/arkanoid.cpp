@@ -11,7 +11,7 @@ ALLEGRO_FONT *Display::font24 = nullptr;
 ALLEGRO_FONT *Display::font50 = nullptr;
 ALLEGRO_FONT *Display::fontBrick = nullptr;
 
-Display::Display(const shared_ptr<Board> &board) : board(board) {
+Display::Display(const unique_ptr<Board> &board) : board(*board) {
   if (!al_init()) {
     throw runtime_error("Failed to initialize Allegro");
   }
@@ -74,19 +74,19 @@ void Display::draw() {
   al_draw_text(font24, COLOR_WHITE, SCREEN_WIDTH / 2 - 24, 30, ALLEGRO_ALIGN_CENTER, gameTitle);
 
   al_draw_text(font24, COLOR_WHITE, (SCREEN_WIDTH / 6), 50, ALLEGRO_ALIGN_CENTER, "Life : ");
-  al_draw_text(font24, COLOR_WHITE, (SCREEN_WIDTH / 6) + 60, 50, ALLEGRO_ALIGN_CENTER, to_string(board->life).c_str());
+  al_draw_text(font24, COLOR_WHITE, (SCREEN_WIDTH / 6) + 60, 50, ALLEGRO_ALIGN_CENTER, to_string(board.life).c_str());
 
   al_draw_text(font24, COLOR_WHITE, (5 * SCREEN_WIDTH / 6) - 30, 45, ALLEGRO_ALIGN_CENTER, "Score : ");
   al_draw_text(font24, COLOR_WHITE, (5 * SCREEN_WIDTH / 6) + 40, 45, ALLEGRO_ALIGN_CENTER,
-               to_string(board->score).c_str());
+               to_string(board.score).c_str());
 
-  board->draw();
+  board.draw();
 
   al_flip_display();
 }
 
 string Display::getScore() {
-  return "Your score is " + to_string(board->score);
+  return "Your score is " + to_string(board.score);
 }
 
 void Display::displayLines3(string line1, string line2, string line3) {

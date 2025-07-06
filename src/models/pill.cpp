@@ -6,8 +6,8 @@ Pill::Pill(const Vec2 &center, const Bonus &bonus)
     : Circle{center, PILL_RADIUS, Vec2{0, -1}, PILL_SPEED, bonus.color}, bonus{bonus} {
 }
 
-shared_ptr<Pill> Pill::make(const Vec2 &center, const Bonus &bonus) {
-  return make_shared<Pill>(center, bonus);
+unique_ptr<Pill> Pill::make(const Vec2 &center, const Bonus &bonus) {
+  return make_unique<Pill>(center, bonus);
 }
 
 bool Pill::checkCatching(const Rectangle &rect) {
