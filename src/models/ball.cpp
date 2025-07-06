@@ -16,6 +16,10 @@ unique_ptr<Ball> Ball::make() {
   return make_unique<Ball>(Vec2{x, y});
 }
 
+unique_ptr<Ball> Ball::make(const Ball &base, const Vec2 &dirVec) {
+  return make_unique<Ball>(base.center, base.radius, dirVec, base.speed);
+}
+
 Vec2 Ball::getCollPosOnRect(const Rectangle &rect) const {
   Vec2 dist = center - rect.center;
   Vec2 half{rect.width / 2, rect.height / 2};

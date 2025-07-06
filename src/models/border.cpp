@@ -1,9 +1,6 @@
 module models.border;
 
 import configs;
-import std;
-
-using namespace std;
 
 Border::Border(const Vec2 &topLeft, const Vec2 &bottomRight)
     : Bounceable{
@@ -13,4 +10,8 @@ Border::Border(const Vec2 &topLeft, const Vec2 &bottomRight)
           BORDER_COLOR,
           BORDER_COLOR,
       } {
+}
+
+unique_ptr<Border> Border::make(const Vec2 &topLeft, const Vec2 &bottomRight) {
+  return make_unique<Border>(topLeft, bottomRight);
 }

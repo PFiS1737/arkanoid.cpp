@@ -21,6 +21,7 @@ export struct Ball final : Circle {
   Ball &operator=(Ball &&) = delete;
 
   static unique_ptr<Ball> make();
+  static unique_ptr<Ball> make(const Ball &base, const Vec2 &dirVec);
 
   double getCollDist(const Rectangle &rect) const;
   bool checkCollision(const Rectangle &rect) const;

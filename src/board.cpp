@@ -5,16 +5,15 @@ import shared.vec2;
 import configs;
 
 Board::Board() {
-  racket =
-      make_unique<Racket>(Vec2{BOARD_WIDTH / 2 + BORDER_THICKNESS, RACKET_Y_POSITION}, RACKET_WIDTH, RACKET_HEIGHT);
+  racket = Racket::make(Vec2{BOARD_WIDTH / 2 + BORDER_THICKNESS, RACKET_Y_POSITION}, RACKET_WIDTH, RACKET_HEIGHT);
 
   // left
-  borders.push_back(make_unique<Border>(Vec2{0, BOARD_HEIGHT}, Vec2{BORDER_THICKNESS, 0}));
+  borders.push_back(Border::make(Vec2{0, BOARD_HEIGHT}, Vec2{BORDER_THICKNESS, 0}));
   // right
-  borders.push_back(make_unique<Border>(Vec2{SCREEN_WIDTH - BORDER_THICKNESS, BOARD_HEIGHT}, Vec2{SCREEN_WIDTH, 0}));
+  borders.push_back(Border::make(Vec2{SCREEN_WIDTH - BORDER_THICKNESS, BOARD_HEIGHT}, Vec2{SCREEN_WIDTH, 0}));
   // top
-  borders.push_back(make_unique<Border>(Vec2{0, BOARD_HEIGHT},
-                                        Vec2{BOARD_WIDTH + BORDER_THICKNESS, BOARD_HEIGHT - BORDER_THICKNESS}));
+  borders.push_back(
+      Border::make(Vec2{0, BOARD_HEIGHT}, Vec2{BOARD_WIDTH + BORDER_THICKNESS, BOARD_HEIGHT - BORDER_THICKNESS}));
 }
 
 bool Board::isWin() {
@@ -255,14 +254,9 @@ void Board::splitBalls() {
       continue;
     }
 
-    Vec2 center = ball->center;
-    double radius = ball->radius;
-    Vec2 dirVec = ball->dirVec;
-    double speed = ball->speed;
-
-    // newBalls.push_back(make_unique<Ball>(center, radius, dirVec, speed));
-    newBalls.push_back(make_unique<Ball>(center, radius, dirVec.rotated(30), speed)); // TODO: random?
-    newBalls.push_back(make_unique<Ball>(center, radius, dirVec.rotated(-30), speed));
+    // newBalls.push_back(std::move(ball));
+    newBalls.push_back(Ball::make(*ball, ball->dirVec.rotated(30))); // TODO: random?
+    newBalls.push_back(Ball::make(*ball, ball->dirVec.rotated(-30)));
   }
 
   balls = std::move(newBalls);
@@ -270,5 +264,5 @@ void Board::splitBalls() {
 
 void Board::shootLaser() {
   if (!laser) return;
-  lasers.push_back(make_unique<Laser>(Vec2{racket->center.x, racket->center.y + RACKET_HEIGHT / 2}));
+  lasers.push_back(Laser::make(Vec2{racket->center.x, racket->center.y + RACKET_HEIGHT / 2}));
 }

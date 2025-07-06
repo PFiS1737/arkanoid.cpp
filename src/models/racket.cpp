@@ -1,11 +1,12 @@
 module models.racket;
 
 import configs;
-import std;
-
-using namespace std;
 
 Racket::Racket(const Vec2 &center, double width, double height) : Bounceable{center, width, height, RACKET_COLOR} {
+}
+
+unique_ptr<Racket> Racket::make(const Vec2 &center, double width, double height) {
+  return make_unique<Racket>(center, width, height);
 }
 
 void Racket::setCenterX(double x) {

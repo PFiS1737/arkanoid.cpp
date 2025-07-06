@@ -9,6 +9,10 @@ import configs;
 Laser::Laser(const Vec2 &center) : Moveable(center, Vec2{0, 1}, LASER_SPEED) {
 }
 
+unique_ptr<Laser> Laser::make(const Vec2 &center) {
+  return make_unique<Laser>(center);
+}
+
 bool Laser::checkHit(const Rectangle &rect) {
   double x = center.x;
   double y = center.y + LASER_LENGTH;
