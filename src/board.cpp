@@ -250,7 +250,10 @@ void Board::splitBalls() {
   vector<shared_ptr<Ball>> newBalls;
 
   for (const auto &ball : balls) {
-    if (ball->stuck) continue;
+    if (ball->stuck) {
+      newBalls.push_back(ball);
+      continue;
+    }
 
     Vec2 center = ball->center;
     double radius = ball->radius;
