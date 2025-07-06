@@ -125,14 +125,14 @@ void Board::solveBallCollisions(const shared_ptr<Ball> &ball) {
     }
   }
 
-  else if (holds_alternative<BrickIt>(value)) {
-    auto brick = *get<BrickIt>(value);
+  else if (holds_alternative<shared_ptr<Brick>>(value)) {
+    auto brick = get<shared_ptr<Brick>>(value);
     ball->collide(brick);
     brick->hit();
   }
 
-  else if (holds_alternative<BorderIt>(value)) {
-    auto border = *get<BorderIt>(value);
+  else if (holds_alternative<shared_ptr<Border>>(value)) {
+    auto border = get<shared_ptr<Border>>(value);
     ball->collide(border);
   }
 }
@@ -141,28 +141,19 @@ Board::findCollisionResult Board::findCollision(const shared_ptr<Ball> &ball) {
   findCollisionResult res;
   double min = numeric_limits<double>::max();
 
-  auto checkCollisions = [&](const auto &seq) {
-    for (auto it = seq.begin(); it != seq.end(); it++) {
-      if (ball->checkCollision(*it)) {
-        double dist = ball->getCollDist(*it);
-        if (dist < min) {
-          res = it;
-          min = dist;
-        }
+  auto checkCollisions = [&](const auto &rect) {
+    if (ball->checkCollision(rect)) {
+      double dist = ball->getCollDist(rect);
+      if (dist < min) {
+        res = rect;
+        min = dist;
       }
     }
   };
 
-  checkCollisions(bricks);
-  checkCollisions(borders);
-
-  if (racket && ball->checkCollision(racket)) {
-    double dist = ball->getCollDist(racket);
-    if (dist < min) {
-      res = racket;
-      min = dist;
-    }
-  }
+  for (const auto &brick : bricks) checkCollisions(brick);
+  for (const auto &border : borders) checkCollisions(border);
+  checkCollisions(racket);
 
   return res;
 }

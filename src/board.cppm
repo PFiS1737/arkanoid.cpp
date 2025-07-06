@@ -23,9 +23,7 @@ export class Board final : public enable_shared_from_this<Board> {
 
   void solveBallCollisions(const shared_ptr<Ball> &ball);
 
-  using BrickIt = vector<shared_ptr<Brick>>::const_iterator;
-  using BorderIt = vector<shared_ptr<Border>>::const_iterator;
-  using findCollisionResult = optional<variant<BrickIt, BorderIt, shared_ptr<Racket>>>;
+  using findCollisionResult = optional<variant<shared_ptr<Brick>, shared_ptr<Border>, shared_ptr<Racket>>>;
   findCollisionResult findCollision(const shared_ptr<Ball> &ball);
 
   unordered_map<Bonus::Type, double> bonuses;
